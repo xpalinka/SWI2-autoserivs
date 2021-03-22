@@ -5,4 +5,5 @@
 /cache/*
 !/cache/.gitignore
 /.env
+/public/.htaccess
 *~
