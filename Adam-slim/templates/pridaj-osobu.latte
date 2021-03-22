@@ -1,0 +1,23 @@
+{extends layout.latte}
+
+{block title}TITLE OF PAGE{/block}
+
+{block body}
+
+    <form method="post" action="{link pridaj-osobu}">
+
+        <input type="text" name="ln" class="form-control" value="{$form['ln']}">
+        <label>Meno</label>
+        <br>
+
+        <input type="text" name="fn" class="form-control" value="{$form['fn']}">
+        <label>Priezvysko</label>
+        <br>
+
+        <input type="text" name="nn" class="form-control" value="{$form['nn']}">
+        <label>Nick</label>
+        <br>
+    <button type="submit" class="btn btn-primary">
+        Odosli
+    </button>
+{/block}

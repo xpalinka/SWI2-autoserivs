@@ -1,0 +1,30 @@
+{extends 'layout.latte'}
+
+{block title}Prihlaseni{/block}
+
+{block body}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 offset-lg-4 mt-4">
+
+                <form method="post" action="{link login}">
+                    <label>Login</label>
+                    <input type="text" name="login" class="form-control">
+                    <br>
+                    <label>Heslo</label>
+                    <input type="password" name="pass" class="form-control">
+                    <br>
+                    <button class="btn btn-primary">
+                        <span class="fa fa-sign-in-alt"></span> Prihlasit
+                    </button>
+                    <br>
+
+                    Nemate ucet?
+                    <br>
+                    <a href="{link newUser}" class="btn btn-primary">
+                        <span class="fa fa-user-plus"></span> Registrovat
+                    </a>
+            </div>
+        </div>
+    </div>
+{/block}

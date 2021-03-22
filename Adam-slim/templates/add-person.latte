@@ -1,0 +1,44 @@
+{extends 'layout.latte'}
+
+{block title}Pridat osobu{/block}
+
+{block body}
+    <div class="container">
+        <h1>{include title}</h1>
+        <form method="post" action="{link addPerson}">
+            <label>Jmeno</label>
+            <input type="text" name="fn" class="form-control"
+                   value="{$form['fn']}"><br>
+            <label>Prijmeni</label>
+            <input type="text" name="ln" class="form-control"
+                   value="{$form['ln']}"><br>
+            <label>Prezdivka</label>
+            <input type="text" name="nn" class="form-control"
+                   value="{$form['nn']}"><br>
+
+            <label>Pohlavi</label>
+            <select name="g" class="form-control">
+                <option value="">Nezname</option>
+                <option value="male">Muz</option>
+                <option value="female">Zena</option>
+            </select>
+            <br>
+            <label>Datum narodenia</label>
+            <input type="date" name="d" class="form-control"
+                   value="{$form['d']}"><br>
+            <label>Vyska</label>
+            <input type="text" name="h" class="form-control"
+                   value="{$form['h']}"><br>
+
+            <button type="submit" class="btn btn-primary">
+                <span class="fa fa-save"></span>
+                Pridat
+            </button>
+        </form>
+
+        <hr>
+        <a href="{link persons}" class="btn btn-primary">
+            <span class="fa fa-arrow-left"></span> Zpet
+        </a>
+    </div>
+{/block}

@@ -28,3 +28,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/table', function () {
     return view('table');
 });
+
+Route::get('/form', function () {
+    return view('createProtocol');
+});

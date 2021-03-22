@@ -1,0 +1,22 @@
+{extends 'layout.latte'}
+
+{block title}Upravit kontakt{/block}
+
+{block body}
+    <div class="container">
+        <h1>{include title}</h1>
+        <form method="post" action="{link editContact}?id={$id}">
+            <label>Kontakt</label>
+            <input type="text" name="c" class="form-control"
+                   value="{$form['c']}"><br>
+            <button type="submit" class="btn btn-primary">
+                <span class="fa fa-save"></span>
+                Upravit
+            </button>
+        </form>
+        <hr>
+        <a href="{link allContacts}" class="btn btn-primary">
+            <span class="fa fa-arrow-left"></span> Zpet
+        </a>
+    </div>
+{/block}

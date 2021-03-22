@@ -1,0 +1,53 @@
+{extends 'layout.latte'}
+
+
+{block title}Vypis lokacie{/block}
+
+{block body}
+    <br>
+    <div class="container">
+        <h1>{include title}</h1>
+
+        <table class="table table-striped">
+            <tr>
+                <th>Mesto</th>
+                <th>Ulica</th>
+                <th>Cislo</th>
+                <th>PCS</th>
+                <th>Krajina</th>
+                <th>Nazov</th>
+                <th>Suradnice</th>
+                <th>Zmazat</th>
+            </tr>
+            {foreach $locations as $l}
+                <tr>
+                    <td class="upper">{$l['city']}</td>
+                    <td>{$l['street_name']}</td>
+                    <td>{$l['street_number']}</td>
+                    <td>{$l['zip']}</td>
+                    <td>{$l['country']}</td>
+                    <td>{$l['name']}</td>
+                    <td>
+                        {if $l['latitude'] !=null}
+                            {$l['latitude']} z.s. / {$l['longitude']} z.d.
+                        {/if}
+                    </td>
+                    <td>
+                        <form method="post"
+                              onsubmit="return confirm('Opravdu smazat lokaciu uzivatelovy?')"
+                              action="{link deleteContact}?id={$l['id_person']}">
+                            <!--
+                            <input type="hidden" name="id"
+                                   value="{$l['id_person']}">
+                            -->
+                            <button type="submit" class="btn btn-danger">
+                                <span class="fa fa-trash"></span>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            {/foreach}
+        </table>
+    </div>
+
+{/block}

@@ -1,0 +1,44 @@
+{extends 'layout.latte'}
+
+{block title}Edit profile{/block}
+
+{block body}
+    <div class="container">
+        <h1>{include title}</h1>
+        <form method="post" action="{link xxxxxx}?id={$id}">
+            <label>First Name*</label>
+            <input type="text" name="fn" value="{$form['fn']}"
+                   class="form-control">
+            <br>
+            <label>Last Name*</label>
+            <input type="text" name="ln" value="{$form['ln']}"
+                   class="form-control">
+            <br>
+            <label>Gender*</label>
+            <select name="g" class="form-control">
+                <option value="male" {if $form['g'] == 'male'}selected{/if}>Male</option>
+                <option value="female" {if $form['g'] == 'female'}selected{/if}>Female</option>
+            </select>
+            <br>
+            <label>Birth day*</label>
+            <input type="date" name="bd" value="{$form['bd']}" class="form-control">
+            <br>
+            <label>E-mail</label>
+            <input type="text" name="e" value="{$form['e']}"
+                   class="form-control">
+            <br>
+            <label>Telephone</label>
+            <input type="text" name="tel" value="{$form['tel']}"
+                   class="form-control">
+            <br>
+            <button type="submit" class="btn btn-primary">
+                <span class="fa fa-save"></span>
+                Edit
+            </button>
+        </form>
+        <hr>
+        <a href="{link xxxxxxxx}" class="btn btn-primary">
+            <span class="fa fa-arrow-left"></span> Back
+        </a>
+    </div>
+{/block}
