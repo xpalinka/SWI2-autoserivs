@@ -14,40 +14,20 @@
 <body>
 <!-- menu -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <a class="navbar-brand" href="{link persons}">APV</a>
+    <a class="navbar-brand" href="{link home}">SWI2</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="{link persons}">
-                    Vypis osob
+                <a class="nav-link" href="{link home}">
+                    Uvod
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{link addPerson}">
-                    Pridat osobu
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{link addWithAddress}">
-                    Pridat osobu s adresou
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{link allContacts}">
-                    Vypis vsetkych kontaktov
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{link allLocations}">
-                    Vypis vsetkych lokacii
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{link allRelationships}">
-                    Vypis vsetkych vztahov
+                <a class="nav-link" href="{link reservations}">
+                    Rezevacie
                 </a>
             </li>
             {if !empty($_SESSION['user'])}
@@ -55,6 +35,13 @@
                     <a class="nav-link" href="{link logout}">
                         <span class="fa fa-sign-out-alt"></span>
                         Odhlasit {$_SESSION['user']['login']}
+                    </a>
+                </li>
+            {else}
+                <li class="nav-item">
+                    <a class="nav-link" href="{link login}">
+                        <span class="fa fa-sign-in-alt"></span>
+                        Prihlasit
                     </a>
                 </li>
             {/if}
