@@ -1,0 +1,44 @@
+{extends 'layout.latte'}
+
+{block title}Make your profile{/block}
+
+{block body}
+    <div class="form-row align-items-center">
+    <div class="container">
+        <h1>{include title}</h1>
+        <form action="{link addUser}" method="post">
+            <label>First Name*</label>
+            <input type="text" name="fn" value="{$form['fn']}"
+                   class="form-control">
+            <br>
+            <label>Last Name*</label>
+            <input type="text" name="ln" value="{$form['ln']}"
+                   class="form-control">
+            <br>
+            <label>Gender*</label>
+            <select name="g" class="form-control">
+                <option value="male" {if $form['g'] == 'male'}selected{/if}>Male</option>
+                <option value="female" {if $form['g'] == 'female'}selected{/if}>Female</option>
+            </select>
+            <br>
+            <label>Birth day*</label>
+            <input type="date" name="bd" value="{$form['bd']}" class="form-control">
+            <br>
+            <label>E-mail</label>
+            <input type="text" name="e" value="{$form['e']}"
+                   class="form-control">
+            <br>
+            <label>Telephone</label>
+            <input type="text" name="tel" value="{$form['tel']}"
+                   class="form-control">
+            <br>
+            <button type="submit" class="btn btn-primary">
+                <span class="fa fa-save"></span>
+                Make profile
+            </button>
+            <br>
+            <label>* Compulsory</label>
+        </form>
+    </div>
+    </div>
+{/block}

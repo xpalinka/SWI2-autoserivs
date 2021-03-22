@@ -1,0 +1,75 @@
+{extends 'layout.latte'}
+
+{block title}Vypis vsetkych vztahov{/block}
+
+{block body}
+    <br>
+    <div class="container">
+
+        <form method="get" action="{link allRelationships}">
+            <input type="text" name="q" value="{$q}" class="form-control">
+            <button type="submit" class="btn btn-primary">
+                <span class="fa fa-search"></span>
+                Hledat
+            </button>
+        </form>
+
+        <!-- odkaz na pridavanie nefuncny -->
+        <div class="float-right">
+            <a href="{link addLocation}"
+               class="btn btn-primary">Nova lokacia
+                <span class="fa fa-plus-square"></span>
+                <span class="fa fa-handshake"></span>
+            </a>
+        </div>
+
+        <h1>{include title}</h1>
+        <table class="table table-striped">
+            <tr>
+                <th>Jmeno</th>
+                <th>Prijmeni</th>
+                <th>Prezdivka</th>
+                <th>Jmeno</th>
+                <th>Prijmeni</th>
+                <th>Prezdivka</th>
+                <th>Druh vztahu</th>
+                <th>Popis</th>
+                <th>Vymazat</th>
+                <th>Upravit</th>
+            </tr>
+            {foreach $relationships as $r}
+                <tr>
+                    <td class="upper">{$r['fno1']}</td>
+                    <td>{$r['lno1']}</td>
+                    <td>{$r['nno1']}</td>
+                    <td >{$r['fno2']}</td>
+                    <td>{$r['lno2']}</td>
+                    <td>{$r['nno2']}</td>
+                    <td>{$r['name']}</td>
+                    <td>{$r['description']}</td>
+                    <td>
+                        <form method="post"
+                            onsubmit="return confirm('Opravdu smazat?')"
+                            action="{link deleteRelationship}?id={$r['id_relation']}">
+                            <!--
+                            <input type="hidden" name="id"
+                            value="{$r['id_relation']}">
+                            -->
+                            <button type="submit" class="btn btn-danger">
+                                <span class="fa fa-trash"></span>
+                            </button>
+                        </form>
+                    </td>
+                    <td>
+                        <!-- odkaz na editaci -->
+                        <a href="{link editRelationship}?id={$r['id_relation']}"
+                           class="btn btn-primary">
+                            <span class="fa fa-edit"></span>
+                        </a>
+                    </td>
+                </tr>
+            {/foreach}
+        </table>
+    </div>
+
+{/block}

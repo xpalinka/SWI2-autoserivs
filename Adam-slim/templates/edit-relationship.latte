@@ -1,0 +1,39 @@
+{extends 'layout.latte'}
+
+{block title}Upravit vztah{/block}
+
+{block body}
+    <div class="container">
+        <h1>{include title}</h1>
+        <form method="post" action="{link editRelationship}?id={$id}">
+            <label>Popisok</label>
+            <input type="text" name="d" class="form-control"
+                   value="{$form['d']}"><br>
+            <label>Novy druh vztahu</label>
+            <input type="text" name="nn" class="form-control"
+                   value="{$form['nn']}"><br>
+
+            <select name="idrt" class="form-control">
+                {*<option value="{$form['idrt']}" selected> {$form['n']} </option>*}
+                <option value="">Novy druh vztahu</option>
+                {foreach $relations as $c}
+                    {if c['name'] != $form['n']}
+                    <option value="{$c['id_relation_type']}"
+                            {if $c['id_relation_type'] == $form['idrt']} selected {/if}>
+                        {$c['name']}
+                    </option>
+                        {/if}
+                {/foreach}
+            </select>
+
+            <button type="submit" class="btn btn-primary">
+                <span class="fa fa-save"></span>
+                Upravit
+            </button>
+        </form>
+        <hr>
+        <a href="{link allRelationships}" class="btn btn-primary">
+            <span class="fa fa-arrow-left"></span> Zpet
+        </a>
+    </div>
+{/block}

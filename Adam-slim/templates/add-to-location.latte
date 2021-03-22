@@ -1,0 +1,29 @@
+{extends 'layout.latte'}
+
+{block title}Pridat osobe adresou{/block}
+
+{block body}
+<div class="container">
+    <h1>{include title}</h1>
+    <form method="post" action="{link addToLocation}?id={$id}">
+        <br>
+        <label>Vybrana lokacia</label>
+        <select name="idl" class="form-control">
+            {foreach $locations as $l}
+                <option value="{$l['id_location']}"
+                        {if $l['id_location'] == $form['idl']} selected {/if}>
+                    {$l['city']} {$l['street_name']} {$l['street_number']} {$l['country']}
+                </option>
+            {/foreach}
+        </select>
+        <button type="submit" class="btn btn-primary">
+        <span class="fa fa-save"></span>
+        Ulozit
+        </button>
+    </form>
+    <hr>
+    <a href="{link persons}" class="btn btn-primary">
+        <span class="fa fa-arrow-left"></span> Zpet
+    </a>
+</div>
+{/block}

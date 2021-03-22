@@ -1,0 +1,74 @@
+{extends 'layout.latte'}
+
+{block title}Vypis vsetkych kontaktov{/block}
+
+{block body}
+    <br>
+    <div class="container">
+
+        <form method="get" action="{link allContacts}">
+            <input type="text" name="q" value="{$q}" class="form-control">
+            <button type="submit" class="btn btn-primary">
+                <span class="fa fa-search"></span>
+                Hledat
+            </button>
+        </form>
+
+        <h1>{include title}</h1>
+        <table class="table table-striped">
+            <tr>
+                <th>Jmeno</th>
+                <th>Prijmeni</th>
+                <th>Prezdivka</th>
+                <th>Druh kontaktu</th>
+                <th>Kontakt</th>
+                <th>Vymazat</th>
+                <th>Upravit</th>
+                <th>Pridat</th>
+            </tr>
+            {foreach $contacts as $c}
+                <tr>
+                    <td class="upper">{$c['first_name']}</td>
+                    <td>{$c['last_name']}</td>
+                    <td>{$c['nickname']}</td>
+                    <td>{$c['name']}</td>
+                    <td>{$c['contact']}</td>
+                    <td>
+                        {if $c['id_contact'] != null}
+                            <form method="post"
+                                  onsubmit="return confirm('Opravdu smazat?')"
+                                  action="{link deleteContact}?id={$c['id_contact']}">
+                                <!--
+                                <input type="hidden" name="id"
+                                       value="{$c['id_contact']}">
+                                -->
+                                <button type="submit" class="btn btn-danger">
+                                    <span class="fa fa-trash"></span>
+                                </button>
+                            </form>
+                        {/if}
+                    </td>
+                    <td>
+                        {if $c['id_contact'] != null}
+                            <!-- odkaz na editaci -->
+                            <a href="{link editContact}?id={$c['id_contact']}"
+                               class="btn btn-primary">
+                                <span class="fa fa-edit"></span>
+                            </a>
+                        {/if}
+                    </td>
+
+                    <td>
+                        <!-- odkaz na pridavanie -->
+                        <a href="{link addContact}?id={$c['id_person']}"
+                           class="btn btn-primary">
+                            <span class="fa fa-plus-square"></span>
+                            <span class="fa fa-address-book"></span>
+                        </a>
+                    </td>
+                </tr>
+            {/foreach}
+        </table>
+    </div>
+
+{/block}
