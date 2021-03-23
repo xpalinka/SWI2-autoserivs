@@ -52,11 +52,11 @@ $app->get('/home', function (Request $request, Response $response, $args) {
 //    }
 //});
 
-include('routes-person.php');
-include('routes-contacts.php');
-include('routes-location.php');
-include('routes-relationship.php');
-include('details.php');
+//include('routes-person.php');
+//include('routes-contacts.php');
+//include('routes-location.php');
+//include('routes-relationship.php');
+//include('details.php');
 
 include('routes-login.php');
-include ('routes-job_site.php');
+//include ('routes-job_site.php');
