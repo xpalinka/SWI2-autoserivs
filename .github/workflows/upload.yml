@@ -10,8 +10,6 @@ jobs:
       CI: true
       LOCAL: test
     steps:
-      - name: checkout
-        uses: actions/checkout@v2
       - name: Copy folder content recursively to remote (clean directory)
         uses: ./
         with:
@@ -20,6 +18,4 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.PASSWORD }}
-          privateKey: ${{ secrets.PRIVATE_KEY}}
-          rmRemote: true
           dotfiles: true        
