@@ -8,7 +8,7 @@ $app->get('/', function (Request $request, Response $response) {
 });
 
 $app->group('/auth', function () use ($app) {
-    include('routes-reservations.php');
+//    include('routes-reservations.php');
     $app->get('/logout', function (Request $request, Response $response) {
         session_destroy();
         return $response->withHeader('Location', $this->router->pathFor('login'));
@@ -52,11 +52,5 @@ $app->get('/home', function (Request $request, Response $response, $args) {
 //    }
 //});
 
-//include('routes-person.php');
-//include('routes-contacts.php');
-//include('routes-location.php');
-//include('routes-relationship.php');
-//include('details.php');
-
+include('routes-reservations.php');
 include('routes-login.php');
-//include ('routes-job_site.php');
