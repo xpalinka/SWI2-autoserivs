@@ -52,5 +52,6 @@ $app->get('/home', function (Request $request, Response $response, $args) {
 //    }
 //});
 
+include('routes-protocols.php');
 include('routes-reservations.php');
 include('routes-login.php');
