@@ -4,10 +4,27 @@
 
 {block body}
     <br>
-    <div class="container">
+    <h1>{include title}</h1>
+    <table class="table table-striped">
+        <tr>
+            <th>Datum vytvoření</th>
+            <th>Popis problému</th>
+            <th>Termín objednávky</th>
+            <th>Jméno zákazníka</th>
+            <th>Email zákazníka</th>
+            <th>Telefon zákazníka</th>
 
-        <h1>{include title}</h1>
-
+        </tr>
+        {foreach $reservations as $reservation}
+            <tr>
+                <td class="upper">{$reservation['datum_vytvorenia']}</td>
+                <td>{$reservation['popis_problemu']}</td>
+                <td>{$reservation['termin']}</td>
+                <td>{$reservation['meno']}</td>
+                <td>{$reservation['email']}</td>
+                <td>{$reservation['telefon']}</td>
+            </tr>
+        {/foreach}
+    </table>
     </div>
-
 {/block}
