@@ -1,0 +1,55 @@
+{extends 'layout.latte'}
+
+{block title}Protokoly{/block}
+
+{block body}
+    <br>
+    <h1>{include title}</h1>
+    <table class="table table-striped">
+        <tr>
+            <th>Datum vytvoření</th>
+            <th>Datum posledné změny</th>
+            <th>Počet položek</th>
+            <th>Zodpovědný zaměstnanec</th>
+            <th>Detailné zobrazení</th>
+            <th>Editovat</th>
+            <th>Vymazat</th>
+
+        </tr>
+        {foreach $protocols as $protocol}
+            <tr>
+                <td class="upper">{$reservation['datum_vystavenia']}</td>
+                <td>{$protocol['posledna_zmena']}</td>
+                <td>{$protocol['poc_poloziek']}</td>
+                <td>{$protocol['meno']}</td>
+
+                <td>
+                    <!-- odkaz na dalsie info -->
+                    <a href="{link details-protocol}?id={$protocol['id_protokol']}"
+                       class="btn btn-primary">
+                        <span class="fa fa-long-arrow-alt-right"></span>
+                    </a>
+                </td>
+
+                <td>
+                    <!-- odkaz na editaci -->
+                    <a href="{link edit-protocol}?id={$protocol['id_protokol']}"
+                       class="btn btn-primary">
+                        <span class="fa fa-edit"></span>
+                    </a>
+                </td>
+
+
+                <td>
+                    <form method="post"
+                          onsubmit="return confirm('Opravdu smazat protokol?')"
+                          action="{link delete-protocol}?id={$protocol['id_protokol']}">
+                        <button type="submit" class="btn btn-danger">
+                            <span class="fa fa-trash"></span>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        {/foreach}
+    </table>
+{/block}
