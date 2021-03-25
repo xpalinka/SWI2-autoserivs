@@ -13,6 +13,5 @@ jobs:
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
-        script: cd /home/xpalinka/public_html/SWI2-autoservis/SWI2-autoserivs && git pull
-
+        script: cd /home/xpalinka/public_html/SWI2-autoservis && [ -d SWI2-autoserivs ] && git -C SWI2-autoserivs/ pull || git clone https://github.com/xpalinka/SWI2-autoserivs.git
 
