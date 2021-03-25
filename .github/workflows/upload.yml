@@ -24,6 +24,6 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           password: ${{ secrets.PASSWORD }}
           #key: ${{ secrets.KEY }}
-          #port: ${{ secrets.PORT }}
+          port: ${{ secrets.PORT }}
           source: "deploy.tar"
           target: "/home/xpalinka/public_html/SWI2-autoservis"
