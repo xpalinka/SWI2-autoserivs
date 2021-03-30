@@ -12,7 +12,7 @@ jobs:
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
-        script: mkdir -p /home/xpalinka/public_html/SWI2-autoservis/test && cd /home/xpalinka/public_html/SWI2-autoservis/test && [ -d SWI2-autoserivs ] && git -C SWI2-autoserivs/ pull || git clone https://github.com/xpalinka/SWI2-autoserivs.git
+        script: rm -rf /home/xpalinka/public_html/SWI2-autoservis/test && mkdir /home/xpalinka/public_html/SWI2-autoservis/test && cd /home/xpalinka/public_html/SWI2-autoservis/test && [ -d SWI2-autoserivs ] && git -C SWI2-autoserivs/ pull || git clone https://github.com/xpalinka/SWI2-autoserivs.git
   testOnDev:
     needs: deployOnDev
     name: Run tests
