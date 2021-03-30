@@ -14,6 +14,7 @@ jobs:
         port: ${{ secrets.PORT }}
         script: mkdir -p /home/xpalinka/public_html/SWI2-autoservis/test && cd /home/xpalinka/public_html/SWI2-autoservis/test && [ -d SWI2-autoserivs ] && git -C SWI2-autoserivs/ pull || git clone https://github.com/xpalinka/SWI2-autoserivs.git
   testOnDev:
+    needs: deployOnDev
     name: Run tests
     runs-on: ubuntu-latest
     steps:
@@ -26,6 +27,8 @@ jobs:
         port: ${{ secrets.PORT }}
         script: cd /home/xpalinka/public_html/SWI2-autoservis/test/SWI2-autoserivs/ && ./test.sh   
   deployOnProduction:
+    if: ${{ github.ref == 'master' }}
+    needs: testOnDev
     name: Deploy on production
     runs-on: ubuntu-latest
     steps:
