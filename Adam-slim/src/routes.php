@@ -56,5 +56,6 @@ include('protocol/routes-protocols.php');
 include('protocol/routes-details-protocol.php');
 include('protocol/routes-edit-protocol.php');
 include('protocol/routes-delete-protocol.php');
+include('protocol/routes-details-protocol-item.php');
 include('routes-reservations.php');
 include('routes-login.php');
