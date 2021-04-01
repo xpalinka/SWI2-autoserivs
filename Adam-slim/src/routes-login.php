@@ -6,21 +6,23 @@ use \Psr\Http\Message\ResponseInterface as Response;
 $app->get('/login', function(Request $request, Response $response, $args) {
     return $this->view->render($response, 'login.latte');
 })->setName('login');
-//<a href="{link login}"> neno <form action="{link login}">
 
 $app->post('/login', function(Request $request, Response $response, $args) {
     $data = $request->getParsedBody();
     if(!empty($data['login']) && !empty($data['pass'])) {
         try {
-            $stmt = $this->db->prepare('SELECT * FROM account WHERE login = :l');
+            $stmt = $this->db->prepare('SELECT * FROM zamestnanec WHERE email = :l');
             $stmt->bindValue(':l', $data['login']);
             $stmt->execute();
             $user = $stmt->fetch();
+            print $data['pass'];
+            print password_hash($data['pass'], PASSWORD_DEFAULT);
+            print $user['heslo'];
             if(!empty($user)) {
-                if(password_verify($data['pass'], $user['password'])) {
+                if(password_verify($data['pass'], $user['heslo'])) {
                     $_SESSION['user'] = $user;
                     return $response->withHeader('Location',
-                        $this->router->pathFor('persons'));
+                        $this->router->pathFor('home'));
                 }
             }
         } catch (Exception $e) {
