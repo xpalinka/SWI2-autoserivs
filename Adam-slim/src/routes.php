@@ -5,7 +5,7 @@ use \Psr\Http\Message\ResponseInterface as Response;
 
 $app->get('/', function (Request $request, Response $response) {
     return $response->withHeader('Location', $this->router->pathFor('home'));
-});
+})->setName('/');
 
 $app->group('/auth', function () use ($app) {
 //    include('routes-reservations.php');
@@ -52,6 +52,9 @@ $app->get('/home', function (Request $request, Response $response, $args) {
 //    }
 //});
 
-include('routes-protocols.php');
+include('protocol/routes-protocols.php');
+include('protocol/routes-details-protocol.php');
+include('protocol/routes-edit-protocol.php');
+include('protocol/routes-delete-protocol.php');
 include('routes-reservations.php');
 include('routes-login.php');
