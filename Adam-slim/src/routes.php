@@ -52,6 +52,7 @@ $app->get('/home', function (Request $request, Response $response, $args) {
 //    }
 //});
 
+include('routes-create-user.php');
 include('protocol/routes-protocols.php');
 include('protocol/routes-details-protocol.php');
 include('protocol/routes-edit-protocol.php');
