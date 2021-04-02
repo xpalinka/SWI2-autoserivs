@@ -3,7 +3,7 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-$app->get('/newWithAddress', function(Request $request, Response $response, $args) {
+$app->get('/create-user', function(Request $request, Response $response, $args) {
     $tplVars['form'] = ['ln' => '', 'fn' => '', 'rc' => '', 'r' => '', 'tf' => '', 't' => '', 'bu' => '', 'm' => '', 'ul' => '', 'oc' => '', 'pc' => '', 'zip' => '', 'st' => ''];
     try {
         $stmt = $this->db->prepare('SELECT * FROM pozicia');
@@ -24,10 +24,10 @@ $app->get('/newWithAddress', function(Request $request, Response $response, $arg
     }
     $tplVars['adresy'] = $stmt->fetchAll();
 
-    return $this->view->render($response, 'create_user.latte', $tplVars);
-})->setName('newWithAddress');
+    return $this->view->render($response, 'create-user.latte', $tplVars);
+})->setName('create-user');
 
-$app->post('/newWithAddress', function(Request $request, Response $response, $args) {
+$app->post('/create-user', function(Request $request, Response $response, $args) {
     $data = $request->getParsedBody();  //$_POST
     if(!empty($data['ln']) && !empty($data['fn']) && !empty($data['rc']) && !empty($data['r']) && !empty($data['bu']) && !empty($data['tf']) && !empty($data['t']) && (!empty($data['adresa_key']) || !empty($data['t'])) ) {
         try {
@@ -74,7 +74,7 @@ $app->post('/newWithAddress', function(Request $request, Response $response, $ar
             if($ex->getCode() == 23505) {
                 $tplVars['error'] = 'Tento užívateľ už existuje.';
                 $tplVars['form'] = $data;
-                return $this->view->render($response, 'create_user.latte', $tplVars);
+                return $this->view->render($response, 'create-user.latte', $tplVars);
             } else {
                 $this->logger->error($ex->getMessage());
                 die($ex->getMessage());
@@ -84,6 +84,6 @@ $app->post('/newWithAddress', function(Request $request, Response $response, $ar
     } else {
         $tplVars['error'] = 'Nie sú vyplnené všetky údaje.';
         $tplVars['form'] = $data;
-        return $this->view->render($response, 'create_user.latte', $tplVars);
+        return $this->view->render($response, 'create-user.latte', $tplVars);
     }
 });
