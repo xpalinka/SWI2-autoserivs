@@ -14,10 +14,7 @@ $app->post('/login', function(Request $request, Response $response, $args) {
             $stmt = $this->db->prepare('SELECT * FROM zamestnanec WHERE email = :l');
             $stmt->bindValue(':l', $data['login']);
             $stmt->execute();
-            $user = $stmt->fetch();
-            print $data['pass'];
-            print password_hash($data['pass'], PASSWORD_DEFAULT);
-            print $user['heslo'];
+            $user = $stmt->fetchAll();
             if(!empty($user)) {
                 if(password_verify($data['pass'], $user['heslo'])) {
                     $_SESSION['user'] = $user;
