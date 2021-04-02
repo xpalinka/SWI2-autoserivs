@@ -18,14 +18,14 @@
         </tr>
         {foreach $protocols as $protocol}
             <tr>
-                <td class="upper">{$reservation['datum_vystavenia']}</td>
+                <td class="upper">{$protocol['datum_vystavenia']}</td>
                 <td>{$protocol['posledna_zmena']}</td>
                 <td>{$protocol['poc_poloziek']}</td>
-                <td>{$protocol['meno']}</td>
+                <td>{$protocol['meno']} {$protocol['priezvisko']}</td>
 
                 <td>
                     <!-- odkaz na dalsie info -->
-                    <a href="{link details-protocol}?id={$protocol['id_protokol']}"
+                    <a href="{link details-protocol}?id={$protocol['protokol_key']}"
                        class="btn btn-primary">
                         <span class="fa fa-long-arrow-alt-right"></span>
                     </a>
@@ -33,7 +33,7 @@
 
                 <td>
                     <!-- odkaz na editaci -->
-                    <a href="{link edit-protocol}?id={$protocol['id_protokol']}"
+                    <a href="{link edit-protocol}?id={$protocol['protokol_key']}"
                        class="btn btn-primary">
                         <span class="fa fa-edit"></span>
                     </a>
