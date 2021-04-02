@@ -37,7 +37,8 @@ $app->post('/create-user', function(Request $request, Response $response, $args)
                 $stmt = $this->db->prepare('INSERT INTO adresa
                                       (mesto, ulica, orientacne_cislo, popisne_cislo, psc, stat)
                                        VALUES 
-                                      (:m, :ul, :oc, :oc, :pc, :zip, :st)');
+                                      (:m, :ul, :oc, :pc, :zip, :st)');
+//                $stmt->bindValue(':id', );
                 $stmt->bindValue(':m', $data['m']);
                 $stmt->bindValue(':ul', $data['ul']);
                 $stmt->bindValue(':oc', $data['oc'] == '' ? null : $data['oc']);
@@ -52,8 +53,8 @@ $app->post('/create-user', function(Request $request, Response $response, $args)
             }
 
             $stmt=$this->db->prepare('INSERT INTO zamestnanec
-                                      (meno, prizvisko, rodne_cislo, email, heslo, bankovy_ucet, telefon, adresa_key, pozicia_key)
-                                       VALUES 
+                                      (meno, priezvisko, rodne_cislo, email, heslo, bankovy_ucet, telefon, adresa_key, pozicia_key)
+                                       VALUES
                                       (:fn, :ln, :rc, :r, :heslo, :bu, :tf, :adr, :poz)');
             $stmt->bindValue(':fn', $data['fn']);
             $stmt->bindValue(':ln', $data['ln']);
@@ -66,13 +67,22 @@ $app->post('/create-user', function(Request $request, Response $response, $args)
             $stmt->bindValue(':adr', $idAddress);
             $stmt->bindValue(':poz', $data['t']);
             $stmt->execute();
-
+//
             $this->db->commit();
 //            $tplVars['done'] = 'Operácia úspešná.';
         } catch (Exception $ex) {
             $this->db->rollback();
             if($ex->getCode() == 23505) {
+                print $ex->getMessage();
                 $tplVars['error'] = 'Tento užívateľ už existuje.';
+                try {
+                    $stmt = $this->db->prepare('SELECT * FROM pozicia');
+                    $stmt->execute();
+                } catch (Exception $ex) {
+                    $this->logger->error($ex->getMessage());
+                    die($ex->getMessage());
+                }
+                $tplVars['pozicie'] = $stmt->fetchAll();
                 $tplVars['form'] = $data;
                 return $this->view->render($response, 'create-user.latte', $tplVars);
             } else {
