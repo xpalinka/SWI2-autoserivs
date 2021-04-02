@@ -5,7 +5,7 @@
 {block body}
     <div class="container">
         <h1>{include title}</h1>
-        <form action="{link newWithAddress}" method="post">
+        <form action="{link create-user}" method="post">
             <div class="row">
                 <div class="col-6">
                     <label>Jmeno</label>
@@ -29,8 +29,9 @@
                     <label>Typ</label>
                     <select name="t" class="form-control">
                         <option value="">Nezname</option>
-                        <option value="zam1" {if $form['t'] == 'male'}selected{/if}>zam1</option>
-                        <option value="zam2" {if $form['t'] == 'female'}selected{/if}>zam2</option>
+                        {foreach $pozicie as $pozicia}
+                            <option value="{$pozicia['pozicia_key']}">{$pozicia['nazov']}</option>
+                        {/foreach}
                     </select>
                     <br>
                     <label>Bankovni ucet</label>

@@ -36,6 +36,14 @@
                 </a>
             </li>
             {if !empty($_SESSION['user'])}
+                    {if ($_SESSION['user']['pozicia'] = 1)}
+                         <li class="nav-item">
+                             <a class="nav-link" href="{link create-user}">
+                                 <span class="fa fa-sign-out-alt"></span>
+                                 Vytvorit novy
+                             </a>
+                         </li>
+                    {/if}
                 <li class="nav-item">
                     <a class="nav-link" href="{link logout}">
                         <span class="fa fa-sign-out-alt"></span>
@@ -50,6 +58,7 @@
                     </a>
                 </li>
             {/if}
+
         </ul>
     </div>
 </nav>
