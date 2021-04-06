@@ -10,10 +10,12 @@ $app->get('/details-protocol', function (Request $request, Response $response, $
         $stmt = $this->db->prepare('SELECT protokol.*, 
                                            zamestnanec.meno AS zamestnanec_meno, zamestnanec.priezvisko AS zamestnanec_priezvisko, zamestnanec.*, 
                                            rezervacia.*, 
+                                           pozicia.*,        
                                            zakaznik.meno AS zakaznik_meno, zakaznik.priezvisko AS zakaznik_priezvisko, zakaznik.*, 
                                            prot_pol.poc_poloziek, prot_pol.cena_prace, prot_pol.cena_spotreby, (cena_prace + cena_spotreby) AS cena_spolu 
                                     FROM protokol
                                     LEFT JOIN zamestnanec USING (zamestnanec_key)
+                                    LEFT JOIN pozicia USING (pozicia_key)
                                     LEFT JOIN rezervacia USING (rezervacia_key)
                                     LEFT JOIN zakaznik USING (zakaznik_key)
                                     
