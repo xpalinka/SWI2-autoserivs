@@ -25,7 +25,19 @@ jobs:
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
-        script: cd /home/xpalinka/public_html/SWI2-autoservis/test/SWI2-autoserivs/ && chmod u=rwx test.sh && ./test.sh   
+        script: cd /home/xpalinka/public_html/SWI2-autoservis/test/SWI2-autoserivs/ && chmod u=rwx test.sh && ./test.sh
+  testUI:
+    needs: testOnDev
+    name: UI tests
+    runs-on: ubuntu-latest
+    steps:
+    - name: setup cypress
+       run: apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
+       run: cd SWI2-autoserivs
+       run: ls
+       run: npm install cypress --save-dev
+    - name: Checkout code
+        uses: actions/checkout@v2
   deployOnProduction:
     if: github.ref == 'refs/heads/master'
     needs: testOnDev
