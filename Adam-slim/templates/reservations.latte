@@ -10,7 +10,7 @@
             <th>Datum vytvoření</th>
             <th>Popis problému</th>
             <th>Termín objednávky</th>
-            <th>Jméno zákazníka</th>
+            <th>Zákazník</th>
             <th>Email zákazníka</th>
             <th>Telefon zákazníka</th>
 
@@ -20,7 +20,7 @@
                 <td class="upper">{$reservation['datum_vytvorenia']}</td>
                 <td>{$reservation['popis_problemu']}</td>
                 <td>{$reservation['termin']}</td>
-                <td>{$reservation['meno']}</td>
+                <td>{$reservation['meno']} {$reservation['priezvisko']}</td>
                 <td>{$reservation['email']}</td>
                 <td>{$reservation['telefon']}</td> {* chyba v tabulke pole sa nevola telefon ale telefeon error*}
             </tr>
