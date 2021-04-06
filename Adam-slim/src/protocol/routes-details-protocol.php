@@ -8,7 +8,7 @@ $app->get('/details-protocol', function (Request $request, Response $response, $
     $tplVars['id'] = $id;
     try {
         $stmt = $this->db->prepare('SELECT protokol.*, 
-                                           zamestnanec.meno AS zamestnanec_meno, zamestnanec.priezvisko AS zamestnanec_priezvisko,
+                                           zamestnanec.meno AS zamestnanec_meno, zamestnanec.priezvisko AS zamestnanec_priezvisko, zamestnanec.*, 
                                            rezervacia.*, 
                                            zakaznik.meno AS zakaznik_meno, zakaznik.priezvisko AS zakaznik_priezvisko, zakaznik.*, 
                                            prot_pol.poc_poloziek, prot_pol.cena_prace, prot_pol.cena_spotreby, (cena_prace + cena_spotreby) AS cena_spolu 
@@ -38,5 +38,19 @@ $app->get('/details-protocol', function (Request $request, Response $response, $
         die($ex->getMessage());
     }
     $tplVars['protocol'] = $stmt->fetchAll();
+    try {
+        $stmt = $this->db->prepare('SELECT typ_opravy.nazov AS typ_opravy_nazov, material.nazov AS material_nazov, * FROM polozka_protokolu
+                                    LEFT JOIN typ_opravy USING (typ_opravy_key)
+                                    LEFT JOIN spotreba_materialu USING (spotreba_materialu_key)
+                                    LEFT JOIN skladova_karta USING (skladova_karta_key)
+                                    LEFT JOIN material USING (material_key)
+                                    WHERE protokol_key = :id');
+        $stmt->bindValue(':id', $id);
+        $stmt->execute();
+    } catch (Exception $ex) {
+        $this->logger->error($ex->getMessage());
+        die($ex->getMessage());
+    }
+    $tplVars['protocolItems'] = $stmt->fetchAll();
     return $this->view->render($response, 'details-protocol.latte', $tplVars);
 })->setName('details-protocol');
