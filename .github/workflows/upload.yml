@@ -1,5 +1,5 @@
 name: scp copy folder to remote via SSH
-on: [push]
+on: [push, pull_request, create]
 jobs:
   deployOnDev:
     name: Deploy on dev
