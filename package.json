@@ -1,0 +1,23 @@
+{
+  "name": "swi2-autoserivs",
+  "version": "1.0.0",
+  "description": "Production at: https://akela.mendelu.cz/~xpalinka/SWI2-autoservis/SWI2-autoserivs/Adam-slim/public/home",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "cypress": "^7.0.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xpalinka/SWI2-autoserivs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/xpalinka/SWI2-autoserivs/issues"
+  },
+  "homepage": "https://github.com/xpalinka/SWI2-autoserivs#readme"
+}
