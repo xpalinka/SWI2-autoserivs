@@ -2,4 +2,7 @@ Production at: https://akela.mendelu.cz/~xpalinka/SWI2-autoservis/SWI2-autoseriv
 
 # Local installation
 php composer install \
-php -S localhost:8080 -t public
+php -S localhost:8080 -t public \
+
+# Running cypress
+./node_modules/.bin/cypress open

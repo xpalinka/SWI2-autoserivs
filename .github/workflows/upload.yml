@@ -36,6 +36,7 @@ jobs:
        run: cd SWI2-autoserivs
        run: ls -la
        run: npm install cypress --save-dev
+       run: ./node_modules/.bin/cypress run
     - name: Checkout code
         uses: actions/checkout@v2
   deployOnProduction:
