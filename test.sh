@@ -3,4 +3,3 @@ cd /home/xpalinka/public_html/SWI2-autoservis/
 cd test
 pwd
 cd ..
-rm -rf test
