@@ -38,7 +38,7 @@ jobs:
     - run: npm install cypress --save-dev
     - run: ./node_modules/.bin/cypress run
     - name: Checkout code
-        uses: actions/checkout@v2
+      uses: actions/checkout@v2
   deployOnProduction:
     if: github.ref == 'refs/heads/master'
     needs: testOnDev
