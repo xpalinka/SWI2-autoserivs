@@ -11,7 +11,7 @@ $app->get('/protocols', function (Request $request, Response $response, $args) {
                                     LEFT JOIN (
                                     SELECT protokol_key, COUNT(*) AS poc_poloziek
                                     FROM polozka_protokolu
-                                    GROUP BY polozka_protokolu_key
+                                    GROUP BY protokol_key
                                     ) AS p_prot_pol
                                     USING(protokol_key)');
         $stmt->execute();
