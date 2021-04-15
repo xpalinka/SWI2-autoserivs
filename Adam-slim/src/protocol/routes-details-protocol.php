@@ -29,7 +29,7 @@ $app->get('/details-protocol', function (Request $request, Response $response, $
                                             LEFT JOIN skladova_karta USING (skladova_karta_key)
                                             LEFT JOIN material USING (material_key)
                                         
-                                        GROUP BY polozka_protokolu_key
+                                        GROUP BY protokol_key
                                     ) AS prot_pol
                                     USING(protokol_key)
                                     WHERE protokol_key = :id');
