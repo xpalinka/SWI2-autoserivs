@@ -5,6 +5,14 @@ jobs:
     name: Deploy on dev
     runs-on: ubuntu-latest
     steps:
+    - name: executing remote ssh commands using password - deleting previous and creating new test file
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        port: ${{ secrets.PORT }}
+        script: rm -rf /home/xpalinka/public_html/SWI2-autoservis/test && mkdir /home/xpalinka/public_html/SWI2-autoservis/test && cd /home/xpalinka/public_html/SWI2-autoservis/test
     - name: executing remote ssh commands using password - deploying on dev
       uses: appleboy/ssh-action@master
       with:
@@ -12,7 +20,7 @@ jobs:
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
-        script: rm -rf /home/xpalinka/public_html/SWI2-autoservis/test && mkdir /home/xpalinka/public_html/SWI2-autoservis/test && cd /home/xpalinka/public_html/SWI2-autoservis/test && [ -d SWI2-autoserivs ] && git -C SWI2-autoserivs/ pull || git clone https://github.com/xpalinka/SWI2-autoserivs.git
+        script: cd /home/xpalinka/public_html/SWI2-autoservis/test && [ -d SWI2-autoserivs ] && git -C SWI2-autoserivs/ pull || git clone https://github.com/xpalinka/SWI2-autoserivs.git
     - name: executing remote ssh commands using password - environment setup
       uses: appleboy/ssh-action@master
       with:
