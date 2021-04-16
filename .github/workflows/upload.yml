@@ -36,6 +36,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
     - run: ls -la
+    - run: cp /home/xpalinka/public_html/SWI2-autoservis/.env /home/xpalinka/public_html/SWI2-autoservis/test/SWI2-autoserivs/Adam-slim/.env
     - run: npm install cypress --save-dev
     - run: ./node_modules/.bin/cypress run
   deployOnProduction:
