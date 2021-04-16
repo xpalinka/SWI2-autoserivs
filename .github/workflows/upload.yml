@@ -47,7 +47,7 @@ jobs:
     name: UI tests
     runs-on: ubuntu-latest
     steps:
-    - name: setup cypress
+    - name: Install cypress dependencies
       run: sudo apt-get install npm libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
     - name: Checkout code
       uses: actions/checkout@v2
