@@ -14,8 +14,8 @@
     "type": "git",
     "url": "git+https://github.com/xpalinka/SWI2-autoserivs.git"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Jaroslav Otradovec",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/xpalinka/SWI2-autoserivs/issues"
   },
