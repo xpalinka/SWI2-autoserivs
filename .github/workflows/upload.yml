@@ -5,7 +5,7 @@ jobs:
     name: Deploy on dev
     runs-on: ubuntu-latest
     steps:
-    - name: executing remote ssh commands using password
+    - name: executing remote ssh commands using password - deploying on dev
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.HOST }}
@@ -13,6 +13,14 @@ jobs:
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
         script: rm -rf /home/xpalinka/public_html/SWI2-autoservis/test && mkdir /home/xpalinka/public_html/SWI2-autoservis/test && cd /home/xpalinka/public_html/SWI2-autoservis/test && [ -d SWI2-autoserivs ] && git -C SWI2-autoserivs/ pull || git clone https://github.com/xpalinka/SWI2-autoserivs.git
+    - name: executing remote ssh commands using password - environment setup
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        port: ${{ secrets.PORT }}
+        script: cp /home/xpalinka/public_html/SWI2-autoservis/.env /home/xpalinka/public_html/SWI2-autoservis/test/SWI2-autoserivs/Adam-slim/.env
   testOnDev:
     needs: deployOnDev
     name: Run tests
@@ -36,7 +44,6 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
     - run: ls -la
-    - run: cp /home/xpalinka/public_html/SWI2-autoservis/.env /home/xpalinka/public_html/SWI2-autoservis/test/SWI2-autoserivs/Adam-slim/.env
     - run: npm install cypress --save-dev
     - run: ./node_modules/.bin/cypress run
   deployOnProduction:
