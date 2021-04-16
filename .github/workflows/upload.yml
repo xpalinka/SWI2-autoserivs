@@ -41,7 +41,8 @@ jobs:
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
-        script: cd /home/xpalinka/public_html/SWI2-autoservis/test/SWI2-autoserivs/ && chmod u=rwx test.sh && ./test.sh
+        script: cd /home/xpalinka/public_html/SWI2-autoservis/test/SWI2-autoserivs/ 
+        #&& chmod u=rwx test.sh && ./test.sh
   testUI:
     needs: testOnDev
     name: UI tests
