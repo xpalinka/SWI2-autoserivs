@@ -28,7 +28,7 @@ jobs:
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
-        script: cp /home/xpalinka/public_html/SWI2-autoservis/.env /home/xpalinka/public_html/SWI2-autoservis/test/SWI2-autoserivs/Adam-slim/.env
+        script: cp /home/xpalinka/public_html/SWI2-autoservis/.env /home/xpalinka/public_html/SWI2-autoservis/test/SWI2-autoserivs/Adam-slim/.env && cp /home/xpalinka/public_html/SWI2-autoservis/.taccess /home/xpalinka/public_html/SWI2-autoservis/test/SWI2-autoserivs/Adam-slim/public/.htaccess
   testOnDev:
     needs: deployOnDev
     name: Run tests
