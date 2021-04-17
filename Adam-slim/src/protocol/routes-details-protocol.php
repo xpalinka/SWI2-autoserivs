@@ -54,5 +54,43 @@ $app->get('/details-protocol', function (Request $request, Response $response, $
         die($ex->getMessage());
     }
     $tplVars['protocolItems'] = $stmt->fetchAll();
+
+    $test = array(
+        array(
+        "popis" => "popis prace",
+        "cena_spolu" => "cena spolu czk", //TODO niekde doplnit cenu za pracu
+        "polozky" => array(
+            array(
+                "material" => "nazov mat 1",
+                "ks" => "5",
+                "cena"=> "5000"
+                ),
+            array(
+                "material" => "nazov mat 2",
+                "ks" => "5",
+                "cena"=> "5000"
+            )
+            )
+        ),
+        array(
+            "popis" => "popis prace2",
+            "cena_spolu" => "cena spolu czk",
+            "polozky" => array(
+                array(
+                    "material" => "nazov mat 1",
+                    "ks" => "5",
+                    "cena"=> "5000"
+                ),
+                array(
+                    "material" => "nazov mat 2",
+                    "ks" => "5",
+                    "cena"=> "5000"
+                )
+            )
+        )
+    );
+
+    $tplVars['test'] = $test;
+
     return $this->view->render($response, 'details-protocol.latte', $tplVars);
 })->setName('details-protocol');

@@ -1,3 +1,43 @@
 /*
   place custom CSS definitions into this file to override Bootstrap
 */
+
+@font-face {
+    font-family: 'FontAwesome';
+//in url add your folder path of FontAwsome Fonts
+src: url('font-awesome/fontawesome-webfont.ttf') format('truetype');
+}
+
+label.form-control{
+    border: none;
+    margin-bottom: 0;
+}
+
+textarea{
+    width: 100%;
+}
+
+/*tree view table*/
+table#mytable td {
+    border: 1px solid #eee;
+}
+.level1 td:first-child {
+    padding-left: 15px;
+}
+
+.collapsec .toggle {
+    background: black;
+}
+.expand .toggle {
+    background: red;
+}
+.toggle {
+    height: 9px;
+    width: 9px;
+    display: inline-block;
+    margin-left: 5px;
+}
+
+.level1{
+    display: none;
+}
