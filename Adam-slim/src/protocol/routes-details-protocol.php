@@ -91,6 +91,14 @@ $app->get('/details-protocol', function (Request $request, Response $response, $
     );
 
     $tplVars['test'] = $test;
+    try {
+        $stmt = $this->db->prepare("SELECT * FROM material");
+        $stmt->execute();
+    } catch (Exception $ex) {
+        $this->logger->error($ex->getMessage());
+        die($ex->getMessage());
+    }
+    $tplVars['materials'] = $stmt->fetchAll();
 
     return $this->view->render($response, 'details-protocol.latte', $tplVars);
 })->setName('details-protocol');
