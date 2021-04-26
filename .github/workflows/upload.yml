@@ -5,14 +5,30 @@ jobs:
     name: Deploy on dev
     runs-on: ubuntu-latest
     steps:
-    - name: executing remote ssh commands using password
+    - name: executing remote ssh commands using password - deleting previous and creating new test file
       uses: appleboy/ssh-action@master
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
-        script: rm -rf /home/xpalinka/public_html/SWI2-autoservis/test && mkdir /home/xpalinka/public_html/SWI2-autoservis/test && cd /home/xpalinka/public_html/SWI2-autoservis/test && [ -d SWI2-autoserivs ] && git -C SWI2-autoserivs/ pull || git clone https://github.com/xpalinka/SWI2-autoserivs.git
+        script: rm -rf /home/xpalinka/public_html/SWI2-autoservis/test && mkdir /home/xpalinka/public_html/SWI2-autoservis/test && cd /home/xpalinka/public_html/SWI2-autoservis/test
+    - name: executing remote ssh commands using password - deploying on dev
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        port: ${{ secrets.PORT }}
+        script: cd /home/xpalinka/public_html/SWI2-autoservis/test && [ -d SWI2-autoserivs ] && git -C SWI2-autoserivs/ pull || git clone https://github.com/xpalinka/SWI2-autoserivs.git
+    - name: executing remote ssh commands using password - environment setup
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        password: ${{ secrets.PASSWORD }}
+        port: ${{ secrets.PORT }}
+        script: cp /home/xpalinka/public_html/SWI2-autoservis/.env /home/xpalinka/public_html/SWI2-autoservis/test/SWI2-autoserivs/Adam-slim/.env && cp /home/xpalinka/public_html/SWI2-autoservis/.taccess /home/xpalinka/public_html/SWI2-autoservis/test/SWI2-autoserivs/Adam-slim/public/.htaccess && chmod a=rwx /home/xpalinka/public_html/SWI2-autoservis/test/SWI2-autoserivs/Adam-slim/logs && chmod a=rwx /home/xpalinka/public_html/SWI2-autoservis/test/SWI2-autoserivs/Adam-slim/cache
   testOnDev:
     needs: deployOnDev
     name: Run tests
@@ -25,7 +41,20 @@ jobs:
         username: ${{ secrets.USERNAME }}
         password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
-        script: cd /home/xpalinka/public_html/SWI2-autoservis/test/SWI2-autoserivs/ && chmod u=rwx test.sh && ./test.sh   
+        script: cd /home/xpalinka/public_html/SWI2-autoservis/test/SWI2-autoserivs/ 
+        #&& chmod u=rwx test.sh && ./test.sh
+  testUI:
+    needs: testOnDev
+    name: UI tests
+    runs-on: ubuntu-latest
+    steps:
+    - name: Install cypress dependencies
+      run: sudo apt-get install npm libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - run: ls -la
+    - run: npm install cypress --save-dev
+    - run: ./node_modules/.bin/cypress run
   deployOnProduction:
     if: github.ref == 'refs/heads/master'
     needs: testOnDev
