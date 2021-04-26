@@ -8,7 +8,7 @@ describe('Login Test', () => {
     cy.get('form').submit()
     cy.get('Chyba prihlaseni').should('not.exist');
     cy.get('div').should('not.have.class','alert')
-    cy.get('Odhlasit').click()
+    cy.get('#nav-item').last().click()
     cy.visit('/')
     cy.contains('Heslo')
   })
