@@ -8,8 +8,8 @@ describe('Login Test', () => {
     cy.get('form').submit()
     cy.get('Chyba prihlaseni').should('not.exist');
     cy.get('div').should('not.have.class','alert')
-    cy.get('#nav-item').last().click()
-    cy.visit('/')
+    cy.get('#navbarNav').find('ul').find('li').last().click()
+    cy.visit('https://akela.mendelu.cz/~xpalinka/SWI2-autoservis/test/SWI2-autoserivs/Adam-slim/public/login')
     cy.contains('Heslo')
   })
 })
