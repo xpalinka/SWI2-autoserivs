@@ -1,337 +1,75 @@
 {extends 'layout.latte'}
 
-{block title}Detail protokolu{/block}
+{block title}Protokoly{/block}
 
-{*rezervácia, položka rotokolu, typ opravy, spotreba materialu, skladova karta*}
 {block body}
     <br>
     <h1>{include title}</h1>
-{*    tlacitko spat, vymazat a editovat*}
+    <table class="table table-striped">
+        <tr>
+            <th>Datum vytvoření</th>
+            <th>Datum posledné změny</th>
+            <th>Počet položek</th>
+            <th>Zodpovědný zaměstnanec</th>
+            <th>Detailné zobrazení</th>
+            <th>Editovat</th>
+            <th>Vymazat</th>
 
-    {foreach $protocol as $p}
-        <div class="row justify-content-between">
-            <div class="col-6">
-                <h3>Základné údaje</h3>
-            </div>
-            <div class="col-2 float-right">
-                <a href="{link protocols}" class="btn btn-primary">
-                    <span class="fa fa-arrow-left"></span> Zpet
-                </a>
-            </div>
-        </div>
-        <form>
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="datum_vystavenia" class="form-control">Vytvorené</label>
-                    <input type="text" readonly class="form-control" id="datum_vystavenia" value={$p['datum_vystavenia']}>
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="posledna_zmena" class="form-control">Posledná zmena</label>
-                    <input type="text" readonly class="form-control" id="posledna_zmena" value={$p['posledna_zmena']}>
-                </div>
-            </div>
+        </tr>
+        {foreach $protocols as $protocol}
+            <tr>
+                <td class="upper">{$protocol['datum_vystavenia']}</td>
+                <td>{$protocol['posledna_zmena']}</td>
+                <td>{$protocol['poc_poloziek']}</td>
+                <td>{$protocol['meno']} {$protocol['priezvisko']}</td>
 
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="meno_priezvisko" class="form-control">Vytvoril</label>
-                    <input type="text" readonly class="form-control" id="meno_priezvisko" value="{$p['zamestnanec_meno']} {$p['zamestnanec_priezvisko']}">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="email" class="form-control">Pozicia</label>
-                    <input type="text" readonly class="form-control" id="email" value="{$p['nazov']}">
-                </div>
-            </div>
-            <br>
-            <h3>Údaje zákazníka</h3>
-            <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="meno_priezvisko" class="form-control">Meno a priezvisko zákazníka</label>
-                        <input type="text" readonly class="form-control" id="meno_priezvisko"
-                               value="{$p['zakaznik_meno']} {$p['zakaznik_priezvisko']}">
-                </div>
-                    <div class="form-group col-md-6">
-                        <label for="spz" class="form-control">SPZ vozidla</label>
-                        <input type="text" readonly class="form-control" id="spz" value={$p['spz']}>
-                    </div>
-            </div>
+                <td>
+                    <!-- odkaz na dalsie info -->
+                    <a href="{link details-protocol}?id={$protocol['protokol_key']}"
+                       class="btn btn-primary">
+                        <span class="fa fa-long-arrow-alt-right"></span>
+                    </a>
+                </td>
 
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="telefon" class="form-control">Telefon</label>
-                    <input type="text" readonly class="form-control" id="telefon" value={$p['telefon']}>
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="email" class="form-control">Email</label>
-                    <input type="text" readonly class="form-control" id="email" value={$p['email']}>
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div class="col-md-6">
-                    <label for="popis_problemu" class="form-control">Popis problému</label>
-                    <textarea readonly class="form-control" id="popis_problemu"
-                              rows="3">{$p['popis_problemu']}</textarea>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-row">
-                        <label for="pocet_poloziek" class="form-control">Pocet poloziek</label>
-                        <input type="text" readonly class="form-control" id="pocet_poloziek" value={$p['poc_poloziek']}>
-                    </div>
-                    <div class="form-row">
-                        <label for="cena" class="form-control">Cena</label>
-                        <input type="text" readonly class="form-control" id="cena" value="{$p['cena_spolu']} CZK">
-                    </div>
-
-                </div>
-            </div>
-        </form>
-
-        <br>
+                <td>
+                    <!-- odkaz na editaci -->
+                    <a href="{link edit-protocol}?id={$protocol['protokol_key']}"
+                       class="btn btn-primary">
+                        <span class="fa fa-edit"></span>
+                    </a>
+                </td>
 
 
-{*        {foreach $protocolItems as $item}*}
-{*            <p>{$item['typ_opravy_nazov']}</p>*}
-{*            <p>{$item['material_nazov']}</p>*}
-{*make it treee view where typ opravy is parent and material child*}
-
-
-{*        {/foreach}*}
-    {/foreach}
-
-    <div class="row justify-content-between">
-        <div class="col-6">
-            <h3>Detaily položiek</h3>
-        </div>
-        <div class="col-2 float-right">
-            <a href="#" class="btn btn-primary">
-                <span class="fa fa-plus"></span> Pridať položku protokolu
-            </a>
-        </div>
-    </div>
-    <br>
-
-{foreach $test as $t}
-    <div id="accordion">
-        <div class="card">
-            <div class="card-header" id="headingOne">
-                <h5 class="mb-0">
-                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        Collapsible Group Item #1
-                    </button>
-                </h5>
-            </div>
-
-            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                <div class="card-body">
-                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                </div>
-            </div>
-        </div>
-    </div>
-
-{/foreach}
-
-{*    <table id="mytable" class="table table-striped">*}
-{*        <th>Činnosť</th>*}
-{*        <th>počet ks</th>*}
-{*        <th>Cena</th>*}
-{*        <th>Pridať materiál</th>*}
-{*        <th>Editovať</th>*}
-{*        <th>Vymazať</th>*}
-{*    {foreach $test as $t}*}
-{*        <tr data-depth="0" class="collapsec collapsable level0">*}
-
-{*            <td><span class="toggle collapsec"></span><strong>{$t['popis']}</strong></td>*}
-{*            <td>5</td> *}{*TODO: dorobit pocet poloziek*}
-{*            <td>{$t['cena_spolu']}</td>*}
-
-
-{*            <td>*}
-{*                <!-- odkaz na pridavanie polozkz -->*}
-{*                <a href="#"*}
-{*                   class="btn btn-primary">*}
-{*                    <span class="fa fa-plus"></span>*}
-{*                </a>*}
-{*            </td>*}
-
-{*            <td>*}
-{*                <!-- odkaz na editaci -->*}
-{*                <a href="#"*}
-{*                   class="btn btn-primary">*}
-{*                    <span class="fa fa-edit"></span>*}
-{*                </a>*}
-{*            </td>*}
-
-
-{*            <td>*}
-{*                <form method="post"*}
-{*                      onsubmit="return confirm('Opravdu smazat polozku protokolu?')"*}
-{*                      action="#">*}
-{*                    <button type="submit" class="btn btn-danger">*}
-{*                        <span class="fa fa-trash"></span>*}
+                <td>
+                    <form method="post"
+                          onsubmit="return confirm('Opravdu smazat protokol?')"
+                          action="{link delete-protocol}?id={$protocol['protokol_key']}">
+                        <button type="submit" class="btn btn-danger">
+                            <span class="fa fa-trash"></span>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        {/foreach}
+    </table>
+{/block}
+{*{foreach $test as $t}*}
+{*    <div id="accordion">*}
+{*        <div class="card">*}
+{*            <div class="card-header" id="headingOne">*}
+{*                <h5 class="mb-0">*}
+{*                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">*}
+{*                        Collapsible Group Item #1*}
 {*                    </button>*}
-{*                </form>*}
-{*            </td>*}
-
-{*        </tr>*}
-{*        {foreach $t['polozky'] as $p}*}
-{*        <tr data-depth="1" class="collapsec collapsable level1">*}
-{*            <td>{$p['material']}</td>*}
-{*            <td>{$p['ks']}</td>*}
-{*            <td>{$p['cena']}</td>*}
-{*            <td></td>*}
-{*            <td>*}
-{*                <!-- odkaz na editaci -->*}
-{*                <a href="#"*}
-{*                   class="btn btn-primary">*}
-{*                    <span class="fa fa-edit"></span>*}
-{*                </a>*}
-{*            </td>*}
-
-
-{*            <td>*}
-{*                <form method="post"*}
-{*                      onsubmit="return confirm('Opravdu smazat material?')"*}
-{*                      action="#">*}
-{*                    <button type="submit" class="btn btn-danger">*}
-{*                        <span class="fa fa-trash"></span>*}
-{*                    </button>*}
-{*                </form>*}
-{*            </td>*}
-{*        </tr>*}
-{*            {/foreach}*}
-{*        <tr data-depth="1" class="collapsec collapsable level1">*}
-{*            <td>Praca</td>*}
-{*            <td>1ks</td>*}
-{*            <td>2000 kc</td>*}
-{*        </tr>*}
-{*        <tr data-depth="0" class="collapsec collapsable level0">*}
-{*            <td><span class="toggle collapsec"></span>Item x</td>*}
-{*            <td>xks</td>*}
-{*            <td>xkc</td>*}
-{*        </tr>*}
-{*        <tr data-depth="1" class="collapsec collapsable level1">*}
-{*            <td>mat</td>*}
-{*            <td>123ks</td>*}
-{*            <td>123kc</td>*}
-{*        </tr>*}
-{*    {/foreach}*}
-{*    </table>*}
-
-
-
-
-
-
-{*{/block}*}
-
-
-{*        <form>*}
-{*            <div class="form-row">*}
-{*                <div class="form-group col-md-6">*}
-{*                    <label for="meno_priezvisko">Meno a priezvisko zákazníka</label>*}
-{*                    <input type="text" readonly class="form-control-plaintext" id="meno_priezvisko"*}
-{*                           value={$p['zakaznik_priezvisko'] $p['zakaznik_meno']}>*}
-{*                </div>*}
-{*                <div class="form-group col-md-6">*}
-{*                    <label for="spz">SPZ vozidla</label>*}
-{*                    <input type="text" readonly class="form-control-plaintext" id="spz" value={$p['spz']}>*}
-{*                </div>*}
-{*            </div>*}
-{*            <div class="form-row">*}
-{*                <div class="form-group col-md-6">*}
-{*                    <label for="telefon">Telefon</label>*}
-{*                    <input type="text" readonly class="form-control-plaintext" id="telefon" value={$p['telefon']}>*}
-{*                </div>*}
-{*                <div class="form-group col-md-6">*}
-{*                    <label for="email">Email</label>*}
-{*                    <input type="text" readonly class="form-control-plaintext" id="email" value={$p['email']}>*}
-{*                </div>*}
-{*            </div>*}
-{*            <div class="form-row">*}
-{*                <div class="form-group">*}
-{*                    <label for="popis_problemu">Popis problému</label>*}
-{*                    <textarea readonly class="form-control" id="popis_problemu"*}
-{*                              rows="3">{$p['popis_problemu']}</textarea>*}
-{*                </div>*}
-
+{*                </h5>*}
 {*            </div>*}
 
-{*            <div class="form-row">*}
-{*                <div class="form-group col-md-4">*}
-{*                    <label for="vytvorene">Vytvorené dňa</label>*}
-{*                    <input type="text" readonly class="form-control-plaintext" id="vytvorene"*}
-{*                           value={$p['datum_vystavenia']}>*}
+{*            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">*}
+{*                <div class="card-body">*}
+{*                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.*}
 {*                </div>*}
-{*                <div class="form-group col-md-4">*}
-{*                    <label for="vytvoril">Posledná zmena</label>*}
-{*                    <input type="text" readonly class="form-control-plaintext" id="vytvoril"*}
-{*                           value={$p['posledna_zmena']}>*}
-{*                </div>*}
-{*                <div class="form-group col-md-4">*}
-{*                    <label for="zamestnanec">Zodpovedná osoba</label>*}
-{*                    <input type="text" readonly class="form-control-plaintext" id="zamestnanec"*}
-{*                           value={$p['zamestnanec_meno']} {$p['zamestnanec_priezvisko']}>*}
-{*                </div>*}
-
 {*            </div>*}
-{*        </form>*}
+{*        </div>*}
+{*    </div>*}
 
-
-
-
-
-
-
-
-{*        *}{*        <div class="row">*}
-{*        *}{*            <div class="col-sm-4">Vytvorené: {$p['datum_vystavenia']}</div>*}
-{*        *}{*            <div class="col-sm-4">Posledná zmena" {$p['posledna_zmena']}</div>*}
-{*        *}{*            <div class="col-sm-4">Zodpovedná osoba: {$p['zamestnanec_meno']} {$p['zamestnanec_priezvisko']}</div>*}
-{*        *}{*        </div>*}
-
-{*        *}{*        <table class="table table-striped">*}
-{*        *}{*        <tr>*}
-{*        *}{*            <th>Meno zákazníka</th>*}
-{*        *}{*            <th>Datum posledné změny</th>*}
-{*        *}{*            <th>Počet položek</th>*}
-{*        *}{*            <th>Zodpovědný zaměstnanec</th>*}
-{*        *}{*            <th>Detailné zobrazení</th>*}
-{*        *}{*            <th>Editovat</th>*}
-{*        *}{*            <th>Vymazat</th>*}
-
-{*        *}{*        </tr>*}
-{*        *}{*        <tr>*}
-{*        *}{*            <td class="upper">{$reservation['datum_vystavenia']}</td>*}
-{*        *}{*            <td>{$protocol['posledna_zmena']}</td>*}
-{*        *}{*            <td>{$protocol['poc_poloziek']}</td>*}
-{*        *}{*            <td>{$protocol['meno']}</td>*}
-
-{*        *}{*            <td>*}
-{*        *}{*                <!-- odkaz na dalsie info -->*}
-{*        *}{*                <a href="{link details-protocol}?id={$protocol['id_protokol']}"*}
-{*        *}{*                   class="btn btn-primary">*}
-{*        *}{*                    <span class="fa fa-long-arrow-alt-right"></span>*}
-{*        *}{*                </a>*}
-{*        *}{*            </td>*}
-
-{*        *}{*            <td>*}
-{*        *}{*                <!-- odkaz na editaci -->*}
-{*        *}{*                <a href="{link edit-protocol}?id={$protocol['id_protokol']}"*}
-{*        *}{*                   class="btn btn-primary">*}
-{*        *}{*                    <span class="fa fa-edit"></span>*}
-{*        *}{*                </a>*}
-{*        *}{*            </td>*}
-
-
-{*        *}{*            <td>*}
-{*        *}{*                <form method="post"*}
-{*        *}{*                      onsubmit="return confirm('Opravdu smazat protokol?')"*}
-{*        *}{*                      action="{link delete-protocol}?id={$protocol['id_protokol']}">*}
-{*        *}{*                    <button type="submit" class="btn btn-danger">*}
-{*        *}{*                        <span class="fa fa-trash"></span>*}
-{*        *}{*                    </button>*}
-{*        *}{*                </form>*}
-{*        *}{*            </td>*}
-{*        *}{*        </tr>*}
-{*    </table>*}
+{*{/foreach}*}
