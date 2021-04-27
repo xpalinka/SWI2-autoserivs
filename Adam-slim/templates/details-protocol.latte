@@ -110,20 +110,19 @@
     </div>
     <br>
 
-
     <table id="mytable" class="table table-striped">
         <th>Činnosť</th>
-        <th>počet ks</th>
-        <th>Cena</th>
+        <th>Množstvo</th>
+        <th>Cena spolu</th>
         <th>Pridať materiál</th>
         <th>Editovať</th>
         <th>Vymazať</th>
-    {foreach $test as $t}
+    {foreach $protocolItems as $item}
         <tr data-depth="0" class="collapsec collapsable level0">
 
-            <td><span class="toggle collapsec"></span><strong>{$t['popis']}</strong></td>
-            <td>5</td> {*TODO: dorobit pocet poloziek*}
-            <td>{$t['cena_spolu']}</td>
+            <td><span class="toggle collapsec"></span><strong>{$item['typ_opravy_nazov']}</strong></td>
+            <td>{$item['mnozstvo']}</td> {*TODO: dorobit pocet poloziek*}
+            <td>{500}</td>
 
 
             <td>
@@ -154,11 +153,11 @@
             </td>
 
         </tr>
-        {foreach $t['polozky'] as $p}
+        {foreach $protocolItems[array_search($item, $protocolItems)]['material'] as $p}
         <tr data-depth="1" class="collapsec collapsable level1">
-            <td>{$p['material']}</td>
-            <td>{$p['ks']}</td>
-            <td>{$p['cena']}</td>
+            <td>{$p['nazov']}</td>
+            <td>{$p['mnozstvo']}</td>
+            <td>{$p['cena_materialu_spolu']}</td>
             <td></td>
             <td>
                 <!-- odkaz na editaci -->
@@ -172,7 +171,7 @@
             <td>
                 <form method="post"
                       onsubmit="return confirm('Opravdu smazat material?')"
-                      action="#">
+                      action="{link delete-protocol-item-material}?id={$p['spotreba_materialu_key']}">
                     <button type="submit" class="btn btn-danger">
                         <span class="fa fa-trash"></span>
                     </button>

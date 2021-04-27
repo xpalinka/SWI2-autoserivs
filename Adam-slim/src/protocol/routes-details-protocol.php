@@ -25,7 +25,7 @@ $app->get('/details-protocol', function (Request $request, Response $response, $
                                         FROM polozka_protokolu
                                             
                                             LEFT JOIN typ_opravy USING (typ_opravy_key)
-                                            LEFT JOIN spotreba_materialu USING (spotreba_materialu_key)
+                                            LEFT JOIN spotreba_materialu USING (polozka_protokolu_key)
                                             LEFT JOIN skladova_karta USING (skladova_karta_key)
                                             LEFT JOIN material USING (material_key)
                                         
@@ -43,7 +43,7 @@ $app->get('/details-protocol', function (Request $request, Response $response, $
     try {
         $stmt = $this->db->prepare('SELECT typ_opravy.nazov AS typ_opravy_nazov, material.nazov AS material_nazov, * FROM polozka_protokolu
                                     LEFT JOIN typ_opravy USING (typ_opravy_key)
-                                    LEFT JOIN spotreba_materialu USING (spotreba_materialu_key)
+                                    LEFT JOIN spotreba_materialu USING (polozka_protokolu_key)
                                     LEFT JOIN skladova_karta USING (skladova_karta_key)
                                     LEFT JOIN material USING (material_key)
                                     WHERE protokol_key = :id');
@@ -55,42 +55,26 @@ $app->get('/details-protocol', function (Request $request, Response $response, $
     }
     $tplVars['protocolItems'] = $stmt->fetchAll();
 
-    $test = array(
-        array(
-        "popis" => "popis prace",
-        "cena_spolu" => "cena spolu czk", //TODO niekde doplnit cenu za pracu
-        "polozky" => array(
-            array(
-                "material" => "nazov mat 1",
-                "ks" => "5",
-                "cena"=> "5000"
-                ),
-            array(
-                "material" => "nazov mat 2",
-                "ks" => "5",
-                "cena"=> "5000"
-            )
-            )
-        ),
-        array(
-            "popis" => "popis prace2",
-            "cena_spolu" => "cena spolu czk",
-            "polozky" => array(
-                array(
-                    "material" => "nazov mat 1",
-                    "ks" => "5",
-                    "cena"=> "5000"
-                ),
-                array(
-                    "material" => "nazov mat 2",
-                    "ks" => "5",
-                    "cena"=> "5000"
-                )
-            )
-        )
-    );
+    $items = $tplVars['protocolItems'];
+    $i = 0;
+    foreach ($items as $item) {
+        try {
+            $stmt = $this->db->prepare("SELECT *, concat(cast(mnozstvo as varchar), ' ', merna_jednotka) as mnozstvo_s_mern, (mnozstvo * predajna_cena) AS cena_materialu_spolu FROM polozka_protokolu
+                                        LEFT JOIN spotreba_materialu USING (polozka_protokolu_key)
+                                        LEFT JOIN skladova_karta USING (skladova_karta_key)
+                                        LEFT JOIN material USING (material_key)
+                                        WHERE polozka_protokolu_key = :id");
+            $stmt->bindValue(':id', $item['polozka_protokolu_key']);
+            $stmt->execute();
+        } catch (Exception $ex) {
+            $this->logger->error($ex->getMessage());
+            die($ex->getMessage());
+        }
+        $tplVars['protocolItems'][$i]['material'] = $stmt->fetchAll();
+        $i = $i + 1;
+    }
+//    $tplVars['i'] = 0;
 
-    $tplVars['test'] = $test;
     try {
         $stmt = $this->db->prepare("SELECT * FROM material");
         $stmt->execute();
@@ -102,3 +86,18 @@ $app->get('/details-protocol', function (Request $request, Response $response, $
 
     return $this->view->render($response, 'details-protocol.latte', $tplVars);
 })->setName('details-protocol');
+
+//add-material-to-protokol-item
+
+$app->post('/delete-protocol-item-material', function (Request $request, Response $response, $args){
+    $id = $request->getQueryParam('id');
+    try{
+        $stmt = $this->db->prepare('DELETE FROM protokol WHERE protokol_key=:id');
+        $stmt->bindValue(':id', $id);
+        $stmt->execute();
+    } catch (Exception $ex){
+        $this->logger->error($ex->getMessage());
+        die($ex->getMessage());
+    }
+    return $response->withHeader('Location', $this->router->pathFor('protocols'));
+})->setName('delete-protocol-item-material');
