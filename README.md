@@ -6,5 +6,9 @@ Testing at: https://akela.mendelu.cz/~xpalinka/SWI2-autoservis/test/SWI2-autoser
 php composer install \
 php -S localhost:8080 -t public \
 
-# Running cypress
-./node_modules/.bin/cypress open
+# Running cypress locally
+Run this in the repo: \
+./node_modules/.bin/cypress open \
+or \
+npm install cypress --save-dev \
+./node_modules/.bin/cypress run
