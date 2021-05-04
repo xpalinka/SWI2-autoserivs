@@ -20,8 +20,9 @@ $app->get('/add-protocol-material', function(Request $request, Response $respons
     $tplVars['materials'] = $stmt->fetchAll();
 
     try {
-        $stmt = $this->db->prepare("SELECT * FROM polozka_protokolu WHERE polozka_protokolu_key = :id
-                                    LEFT JOIN typ_opravy USING(typ_opravy_key)");
+        $stmt = $this->db->prepare("SELECT * FROM polozka_protokolu
+                                    LEFT JOIN typ_opravy USING(typ_opravy_key)
+                                    WHERE polozka_protokolu_key = :id");
         $stmt->bindValue(':id', $id);
         $stmt->execute();
     } catch (Exception $ex) {
