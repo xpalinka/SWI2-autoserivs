@@ -16,7 +16,7 @@ $app->get('/create-protocol', function (Request $request, Response $response, $a
         die($ex->getMessage());
     }
 
-    $tplVars['protocol'] = $stmt->fetchAll();
+    $tplVars['reservation'] = $stmt->fetchAll();
     try {
         $stmt = $this->db->prepare('SELECT * FROM rezervacia
                                     WHERE rezervacia_key=:id');
