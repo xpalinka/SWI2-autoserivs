@@ -22,7 +22,7 @@ $app->get('/create-protocol', function (Request $request, Response $response, $a
         $stmt = $this->db->prepare('SELECT 
                                     *
                                     FROM  rezervacia
-                                    WHERE protokol_key = :id');
+                                    WHERE rezervacia_key = :id');
         $stmt->bindValue(':id', $id);
         $stmt->execute();
     } catch (Exception $ex) {
