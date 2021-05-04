@@ -36,7 +36,7 @@ $app->get('/add-protocol-material', function(Request $request, Response $respons
 
 $app->post('/add-protocol-material', function(Request $request, Response $response, $args) {
     $data = $request->getParsedBody();  //$_POST
-    if ($data['mnozstvo_materialu'] != 0 && !empty($data['material'])) {
+    if ($data['mnozstvo_materialu'] != 0 && $data['material'] != '') {
         try {
             $this->db->beginTransaction();
 
@@ -96,6 +96,14 @@ $app->post('/add-protocol-material', function(Request $request, Response $respon
     } else {
         $tplVars['error'] = 'Nie sú vyplnené všetky údaje.';
         $tplVars['form'] = $data;
+        try {
+            $stmt = $this->db->prepare("SELECT * FROM material");
+            $stmt->execute();
+        } catch (Exception $ex) {
+            $this->logger->error($ex->getMessage());
+            die($ex->getMessage());
+        }
+        $tplVars['materials'] = $stmt->fetchAll();
         return $this->view->render($response, 'add-protocol-material.latte', $tplVars);
     }
 });
