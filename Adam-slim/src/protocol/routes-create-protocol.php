@@ -16,16 +16,17 @@ $app->get('/create-protocol', function (Request $request, Response $response, $a
         die($ex->getMessage());
     }
 
-    $tplVars['reservation'] = $stmt->fetchAll();
+
     try {
         $stmt = $this->db->prepare('SELECT * FROM rezervacia
                                     WHERE rezervacia_key=:id');
-        $stmt->bindValue(':id', $id);
+
         $stmt->execute();
     } catch (Exception $ex) {
         $this->logger->error($ex->getMessage());
         die($ex->getMessage());
     }
+    $tplVars['reservation'] = $stmt->fetchAll();
 
 
 
