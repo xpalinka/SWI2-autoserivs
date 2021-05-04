@@ -1,0 +1,41 @@
+{extends 'layout.latte'}
+
+{block title}Pridať materiál k položke protokolu {$polozka['nazov']}{/block}
+
+{*rezervácia, položka rotokolu, typ opravy, spotreba materialu, skladova karta*}
+{block body}
+    <div class="container">
+        <br>
+        <h1>{include title}</h1>
+
+        <form action="{link add-protocol-material}" method="post">
+            <input name="polozka_protokolu_key" type="hidden" value="{$form['id']}">
+            <div class="form-group">
+                <label for="material_key">Volba materialu</label>
+                <select class="form-control" id="material_key" name="material_key">
+                    {foreach $materials as $material}
+                        <option id="{$material['material_key']}"
+                                value="{$material['material_key']}">{$material['nazov']}</option>
+                    {/foreach}
+                </select>
+            </div>
+            <div class="form-group">
+                <div class="form-group">
+                    <label for="mnozstvo_materialu">Množstvo spotrebovávaného materiálu</label>
+                    <input type="number" class="form-control" id="mnozstvo_materialu" name="mnozstvo_materialu"
+                           value="" placeholder="0" min="1" required/>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">
+                <span class="fa fa-save"></span>
+                Pridaj zvolený material
+            </button>
+        </form>
+        <hr>
+        <a href="{link details-protocol}?id={$polozka['protokol_key']}" class="btn btn-primary">
+            <span class="fa fa-arrow-left"></span> Zpet
+        </a>
+    </div>
+
+
+{/block}
