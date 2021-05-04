@@ -7,7 +7,7 @@ $app->get('/create-protocol', function (Request $request, Response $response, $a
     $id = $request->getQueryParam('id');
     $tplVars['id'] = $id;
     try {
-        $stmt = $this->db->prepare('SELECT rezervacia.id AS rezervacia_key
+        $stmt = $this->db->prepare('SELECT *
                                     FROM rezervacia
 
                                     WHERE rezervacia_key = :id');
