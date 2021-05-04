@@ -134,12 +134,11 @@
                     </a>
                 </td>
 
-
                 <td>
-                    {*                    TODO oprav linkovanie*}
                     <form method="get"
                           onsubmit="return confirm('Opravdu smazat polozku protokolu?')"
-                          action="">
+                          action="{link details-protocol}">
+                            <input type="hidden" value="{$id}" name="id">
                             <button type="submit" class="btn btn-danger">
                                 <span class="fa fa-trash"></span>
                             </button>
