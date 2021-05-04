@@ -8,9 +8,20 @@ $app->get('/create-protocol', function (Request $request, Response $response, $a
     $tplVars['id'] = $id;
     try {
         $stmt = $this->db->prepare('SELECT rezervacia.*, 
-                                           zakaznik.id AS zakaznik_key, 
                                     FROM rezervacia
 
+                                    WHERE rezervacia_key = :id');
+        $stmt->bindValue(':id', $id);
+        $stmt->execute();
+    } catch (Exception $ex) {
+        $this->logger->error($ex->getMessage());
+        die($ex->getMessage());
+    }
+    $tplVars['reservation'] = $stmt->fetchAll();
+    try {
+        $stmt = $this->db->prepare('SELECT 
+                                    reservation.datum AS rezervacia_datum_vytvorenia, reservation.key AS rezervacia_key
+                                    FROM  rezervacia
                                     WHERE protokol_key = :id');
         $stmt->bindValue(':id', $id);
         $stmt->execute();
