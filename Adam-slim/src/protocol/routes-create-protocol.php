@@ -16,6 +16,14 @@ $app->get('/create-protocol', function (Request $request, Response $response, $a
     }
 
     $tplVars['reservations'] = $stmt->fetchAll();
+    try {
+        $stmt = $this->db->prepare('SELECT * FROM rezervacia
+                                    WHERE rezervacia_key=:id');
+        $stmt->execute();
+    } catch (Exception $ex) {
+        $this->logger->error($ex->getMessage());
+        die($ex->getMessage());
+    }
 
 
     return $this->view->render($response, 'create-protocol.latte');
