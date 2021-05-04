@@ -20,7 +20,7 @@ $app->get('/create-protocol', function (Request $request, Response $response, $a
     $tplVars['reservation'] = $stmt->fetchAll();
     try {
         $stmt = $this->db->prepare('SELECT 
-                                    reservation.datum AS rezervacia_datum_vytvorenia, reservation.key AS rezervacia_key
+                                    *
                                     FROM  rezervacia
                                     WHERE protokol_key = :id');
         $stmt->bindValue(':id', $id);
