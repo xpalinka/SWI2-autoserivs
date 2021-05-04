@@ -122,8 +122,8 @@
             <tr data-depth="0" class="collapsec collapsable level0">
 
                 <td><span class="toggle collapsec"></span><strong>{$item['typ_opravy_nazov']}</strong></td>
-                <td>{$item['mnozstvo']}</td> {*TODO: dorobit pocet poloziek*}
-                <td>{500}</td>
+                <td>{$item['poc_spotr']}</td> {*TODO: dorobit pocet poloziek*}
+                <td>{$item['celkova_cena_polozky']}</td>
 
 
                 <td>
@@ -149,7 +149,7 @@
             {foreach $protocolItems[array_search($item, $protocolItems)]['material'] as $p}
                 <tr data-depth="1" class="collapsec collapsable level1">
                     <td>{$p['nazov']}</td>
-                    <td>{$p['mnozstvo']}</td>
+                    <td>{$p['mnozstvo_s_mern']}</td>
                     <td>{$p['cena_materialu_spolu']}</td>
                     <td></td>
 
