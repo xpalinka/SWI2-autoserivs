@@ -104,6 +104,17 @@ $app->post('/add-protocol-material', function(Request $request, Response $respon
             die($ex->getMessage());
         }
         $tplVars['materials'] = $stmt->fetchAll();
+        try {
+            $stmt = $this->db->prepare("SELECT * FROM polozka_protokolu
+                                    LEFT JOIN typ_opravy USING(typ_opravy_key)
+                                    WHERE polozka_protokolu_key = :id");
+            $stmt->bindValue(':id', $id);
+            $stmt->execute();
+        } catch (Exception $ex) {
+            $this->logger->error($ex->getMessage());
+            die($ex->getMessage());
+        }
+        $tplVars['polozka'] = $stmt->fetch();
         return $this->view->render($response, 'add-protocol-material.latte', $tplVars);
     }
 });
