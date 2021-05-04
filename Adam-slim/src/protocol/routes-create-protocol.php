@@ -8,7 +8,7 @@ $app->get('/create-protocol', function (Request $request, Response $response, $a
     $tplVars['id'] = $id;
     try {
         $stmt = $this->db->prepare('SELECT * FROM rezervacia
-                                    LEFT JOIN zakaznik where rezervacia_key =:id');
+                                    WHERE rezervacia_key=:id');
         $stmt->execute();
     } catch (Exception $ex) {
         $this->logger->error($ex->getMessage());
