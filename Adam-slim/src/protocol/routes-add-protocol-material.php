@@ -31,7 +31,7 @@ $app->get('/add-protocol-material', function(Request $request, Response $respons
     }
     $tplVars['polozka'] = $stmt->fetch();
 
-    return $this->view->render($response, 'add-protocol-material', $tplVars);
+    return $this->view->render($response, 'add-protocol-material.latte', $tplVars);
 })->setName('add-protocol-material');
 
 $app->post('/add-protocol-material', function(Request $request, Response $response, $args) {
