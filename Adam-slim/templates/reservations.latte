@@ -13,6 +13,7 @@
             <th>Zákazník</th>
             <th>Email zákazníka</th>
             <th>Telefon zákazníka</th>
+            <th>Protokol</th>
 
         </tr>
         {foreach $reservations as $reservation}
@@ -26,7 +27,7 @@
 
             <td>
                 <!-- odkaz na dalsie info -->
-                <a href="{link create-protocol}?id={$reservation['protokol_key']}"
+                <a href="{link create-protocol}?id={$reservation['rezervacia_key']}"
                    class="btn btn-primary">
                     <span class="fa fa-long-arrow-alt-right"></span>
                 </a>

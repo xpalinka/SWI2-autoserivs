@@ -8,7 +8,39 @@
     <h1>{include title}</h1>
 {*    tlacitko spat, vymazat a editovat*}
 
-    {foreach $protocol as $p}
+<div class="container">
+    <h1>{include title}</h1>
+    <form action="" method="post">
+        <div class="row">
+            <div class="col-6">
+                {foreach $resevation as $r}
+                <label>Datum vystaveni</label>
+                <input type="text" name="fn" value="{$r['datum_vytvorenia']}"
+                       class="form-control">
+                <br>
+                <label>Posledni zmena</label>
+                <input type="text" name="ln" value="{$r['datum_vytvorenia']}"
+                       class="form-control">
+                <br>
+                <label>Zamestnanec</label>
+                <select name="t" class="form-control">
+                    <option value="">Nezname</option>
+                    {foreach $pozicie as $pozicia}
+                        <option value="{$pozicia['pozicia_key']}">{$pozicia['nazov']}</option>
+                    {/foreach}
+                </select>
+                <br>
+                <label>Rezervacia</label>
+
+                    <input type="text" name="r" value="{$r['rezervacia_key']}">
+
+                <br>
+                {/foreach}
+            </div>
+
+        </div>
+      {/block}
+{*    {foreach $reservation as $p}
         <div class="row justify-content-between">
             <div class="col-6">
                 <h3>Základné údaje</h3>
@@ -96,8 +128,10 @@
 
 
 {*        {/foreach}*}
-    {/foreach}
+{*    {/foreach}
 
+*}
+        {*
     <div class="row justify-content-between">
         <div class="col-6">
             <h3>Detaily položiek</h3>
@@ -123,7 +157,7 @@
 
             <td><span class="toggle collapsec"></span><strong>{$t['popis']}</strong></td>
             <td>5</td> {*TODO: dorobit pocet poloziek*}
-            <td>{$t['cena_spolu']}</td>
+           {* <td>{$t['cena_spolu']}</td>
 
 
             <td>
@@ -195,7 +229,7 @@
 {*            <td>123ks</td>*}
 {*            <td>123kc</td>*}
 {*        </tr>*}
-    {/foreach}
+ {*   {/foreach}
     </table>
 
 
@@ -205,7 +239,7 @@
 
 {/block}
 
-
+*}
 {*        <form>*}
 {*            <div class="form-row">*}
 {*                <div class="form-group col-md-6">*}
