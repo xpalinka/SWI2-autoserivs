@@ -7,28 +7,15 @@ $app->get('/create-protocol', function (Request $request, Response $response, $a
     $id = $request->getQueryParam('id');
     $tplVars['id'] = $id;
     try {
-        $stmt = $this->db->prepare('SELECT *
-                                    FROM rezervacia
+        $stmt = $this->db->prepare('SELECT * FROM rezervacia
+                                    LEFT JOIN zakaznik where rezervacia_key =:id');
+        $stmt->execute();
+    } catch (Exception $ex) {
+        $this->logger->error($ex->getMessage());
+        die($ex->getMessage());
+    }
 
-                                    WHERE rezervacia_key = :id');
-        $stmt->bindValue(':id', $id);
-        $stmt->execute();
-    } catch (Exception $ex) {
-        $this->logger->error($ex->getMessage());
-        die($ex->getMessage());
-    }
-    $tplVars['reservation'] = $stmt->fetchAll();
-    try {
-        $stmt = $this->db->prepare('SELECT 
-                                    *
-                                    FROM  rezervacia
-                                    WHERE rezervacia_key = :id');
-        $stmt->bindValue(':id', $id);
-        $stmt->execute();
-    } catch (Exception $ex) {
-        $this->logger->error($ex->getMessage());
-        die($ex->getMessage());
-    }
+    $tplVars['reservations'] = $stmt->fetchAll();
 
 
     return $this->view->render($response, 'create-protocol.latte');
