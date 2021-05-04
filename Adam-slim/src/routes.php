@@ -61,3 +61,4 @@ include('protocol/routes-details-protocol-item.php');
 include('routes-reservations.php');
 include('routes-login.php');
 include('protocol/routes-create-protocol.php');
+include('protocol/routes-add-protocol-material.php');
