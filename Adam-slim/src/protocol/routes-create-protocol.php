@@ -15,7 +15,7 @@ $app->get('/create-protocol', function (Request $request, Response $response, $a
         die($ex->getMessage());
     }
 
-    $tplVars['reservations'] = $stmt->fetchAll();
+
 
 
 
