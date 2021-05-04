@@ -36,7 +36,7 @@ $app->get('/add-protocol-material', function(Request $request, Response $respons
 
 $app->post('/add-protocol-material', function(Request $request, Response $response, $args) {
     $data = $request->getParsedBody();  //$_POST
-    if ($data['mnozstvo_materialu'] != 0 && $data['material'] != '') {
+    if (true) {
         try {
             $this->db->beginTransaction();
 
