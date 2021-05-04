@@ -75,15 +75,6 @@ $app->get('/details-protocol', function (Request $request, Response $response, $
     }
 //    $tplVars['i'] = 0;
 
-    try {
-        $stmt = $this->db->prepare("SELECT * FROM material");
-        $stmt->execute();
-    } catch (Exception $ex) {
-        $this->logger->error($ex->getMessage());
-        die($ex->getMessage());
-    }
-    $tplVars['materials'] = $stmt->fetchAll();
-
     return $this->view->render($response, 'details-protocol.latte', $tplVars);
 })->setName('details-protocol');
 
@@ -92,7 +83,7 @@ $app->get('/details-protocol', function (Request $request, Response $response, $
 $app->post('/delete-protocol-item-material', function (Request $request, Response $response, $args){
     $id = $request->getQueryParam('id');
     try{
-        $stmt = $this->db->prepare('DELETE FROM protokol WHERE protokol_key=:id');
+        $stmt = $this->db->prepare('DELETE FROM spotreba_materialu WHERE spotreba_materialu_key=:id');
         $stmt->bindValue(':id', $id);
         $stmt->execute();
     } catch (Exception $ex){
