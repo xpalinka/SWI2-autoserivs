@@ -23,6 +23,14 @@
                 <td>{$reservation['meno']} {$reservation['priezvisko']}</td>
                 <td>{$reservation['email']}</td>
                 <td>{$reservation['telefon']}</td> {* chyba v tabulke pole sa nevola telefon ale telefeon error*}
+
+            <td>
+                <!-- odkaz na dalsie info -->
+                <a href="{link create-protocol}?id={$reservation['protokol_key']}"
+                   class="btn btn-primary">
+                    <span class="fa fa-long-arrow-alt-right"></span>
+                </a>
+            </td>
             </tr>
         {/foreach}
     </table>
