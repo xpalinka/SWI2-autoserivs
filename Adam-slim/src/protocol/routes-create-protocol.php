@@ -7,7 +7,7 @@ $app->get('/create-protocol', function (Request $request, Response $response, $a
     $id = $request->getQueryParam('id');
     $tplVars['id'] = $id;
     try {
-        $stmt = $this->db->prepare('SELECT * FROM rezervacia
+        $stmt = $this->db->prepare('SELECT rezervacia.* FROM rezervacia
                                     WHERE rezervacia_key=:id');
         $stmt->execute();
     } catch (Exception $ex) {
@@ -17,7 +17,7 @@ $app->get('/create-protocol', function (Request $request, Response $response, $a
 
     $tplVars['reservations'] = $stmt->fetchAll();
     try {
-        $stmt = $this->db->prepare('SELECT * FROM rezervacia
+        $stmt = $this->db->prepare('SELECT rezervacia.* FROM rezervacia
                                     WHERE rezervacia_key=:id');
         $stmt->execute();
     } catch (Exception $ex) {
