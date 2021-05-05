@@ -29,7 +29,7 @@ $app->get('/create-protocol', function (Request $request, Response $response, $a
 
     $tplVars['zamestnanec'] = $stmt->fetchAll();
     try {
-        $stmt = $this->db->prepare('SELECT zamestnanec_key, meno, priezvisko FROM zamestnanec');
+        $stmt = $this->db->prepare('SELECT * FROM zamestnanec');
         $stmt->execute();
     } catch (Exception $ex) {
         $this->logger->error($ex->getMessage());
