@@ -16,7 +16,7 @@ $app->get('/create-protocol', function (Request $request, Response $response, $a
         die($ex->getMessage());
     }
 
-
+    $tplVars['reservation'] = $stmt->fetchAll();
     try {
         $stmt = $this->db->prepare('SELECT * FROM rezervacia
                                     WHERE rezervacia_key=:id');
@@ -26,7 +26,7 @@ $app->get('/create-protocol', function (Request $request, Response $response, $a
         $this->logger->error($ex->getMessage());
         die($ex->getMessage());
     }
-    $tplVars['reservation'] = $stmt->fetchAll();
+
 
 
 

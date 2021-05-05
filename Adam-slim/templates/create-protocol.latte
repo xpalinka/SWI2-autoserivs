@@ -10,13 +10,16 @@
 
 <div class="container">
     <h1>{include title}</h1>
-    {foreach $reservation as $r}
+
     <form action="" method="post">
         <div class="row">
             <div class="col-6">
+
                 <label>Datum vystaveni</label>
+                {foreach $reservation as $r}
                 <input type="text" name="fn" value="{$r['datum']}"
                        class="form-control">
+                    {/foreach}
                 <br>
                 <label>Posledni zmena</label>
                 <input type="text" name="ln" value="{$r['datum']}"
@@ -35,10 +38,11 @@
                     <input type="text" name="r" value="{$r['rezervacia_key']}">
 
                 <br>
+
             </div>
 
         </div>
-        {/foreach}
+
       {/block}
 {*    {foreach $reservation as $p}
         <div class="row justify-content-between">
