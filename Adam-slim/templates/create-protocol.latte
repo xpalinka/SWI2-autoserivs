@@ -16,7 +16,7 @@
             <div class="col-6">
 
                 <label>Datum vystaveni</label>
-               {* {foreach $reservation as $res}*}
+               {foreach $reservation as $res}
                 <input type="text" name="fn" value="{$res['datum_vytvorenia']}"
                        class="form-control">
 
@@ -29,7 +29,7 @@
                     <select name="t" class="form-control">
                         <option value="">Vyberte</option>
                         {foreach $zamestnanec as $zames}
-                            <option value="{$zames['zamestnanec_key']}">{$zames['zamestnanec_key']}</option>
+                            <option value="{$zames['meno']}">{$zames['meno']}</option>
                         {/foreach}
                     </select>
                 <br>
@@ -38,7 +38,7 @@
                     <input type="text" name="r" value="{$res['rezervacia_key']}">
 
                 <br>
-                {*{/foreach}*}
+                {/foreach}
 
             </div>
 
