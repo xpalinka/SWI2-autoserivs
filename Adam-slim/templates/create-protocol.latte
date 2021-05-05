@@ -19,7 +19,7 @@
                 {foreach $reservation as $res}
                 <input type="text" name="fn" value="{$res['datum_vytvorenia']}"
                        class="form-control">
-                {/foreach}
+
                 <br>
                 <label>Posledni zmena</label>
                 <input type="text" name="ln" value="{$res['datum_vytvorenia']}"
@@ -29,7 +29,7 @@
                 <select name="t" class="form-control">
                     <option value="">Vyberte</option>
                     {foreach $zamestnanec as $zames}
-                        <option value="{$zames'zamestnanec_key']}">{$zames['zamestnanec_key']}</option>
+                        <option value="{$zames['zamestnanec_key']}">{$zames['zamestnanec_key']}</option>
                     {/foreach}
                 </select>
                 <br>
@@ -38,7 +38,7 @@
                     <input type="text" name="r" value="{$res['rezervacia_key']}">
 
                 <br>
-
+                {/foreach}
             </div>
 
         </div>
