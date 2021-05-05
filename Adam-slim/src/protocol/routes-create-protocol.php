@@ -27,7 +27,7 @@ $app->get('/create-protocol', function (Request $request, Response $response, $a
         die($ex->getMessage());
     }
 
-
+    $tplVars['zamestnanec'] = $stmt->fetchAll();
     try {
         $stmt = $this->db->prepare('SELECT * FROM zamestnanec');
         $stmt->execute();
@@ -35,7 +35,7 @@ $app->get('/create-protocol', function (Request $request, Response $response, $a
         $this->logger->error($ex->getMessage());
         die($ex->getMessage());
     }
-    $tplVars['zamestnanec'] = $stmt->fetchAll();
+
 
 
 
