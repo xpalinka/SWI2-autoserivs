@@ -16,13 +16,13 @@
             <div class="col-6">
 
                 <label>Datum vystaveni</label>
-                {foreach $reservation as $r}
-                <input type="text" name="fn" value="{$r['datum']}"
+                {foreach $reservation as $res}
+                <input type="text" name="fn" value="{$res['datum']}"
                        class="form-control">
                     {/foreach}
                 <br>
                 <label>Posledni zmena</label>
-                <input type="text" name="ln" value="{$r['datum']}"
+                <input type="text" name="ln" value="{$res['datum']}"
                        class="form-control">
                 <br>
                 <label>Zamestnanec</label>

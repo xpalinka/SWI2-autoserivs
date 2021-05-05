@@ -30,5 +30,5 @@ $app->get('/create-protocol', function (Request $request, Response $response, $a
 
 
 
-    return $this->view->render($response, 'create-protocol.latte');
+    return $this->view->render($response, 'create-protocol.latte',$tplVars);
 })->setName('create-protocol');
