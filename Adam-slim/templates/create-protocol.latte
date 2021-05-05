@@ -29,7 +29,7 @@
                 <select name="t" class="form-control">
                     <option value="">Vyberte</option>
                     {foreach $zamestnanec as $zam}
-                        <option value="{$zam['zamestnanec_key']}">{$zam['meno']['priezvisko']}</option>
+                        <option value="{$zam['zamestnanec_key']}">{$zam['priezvisko']}</option>
                     {/foreach}
                 </select>
                 <br>
