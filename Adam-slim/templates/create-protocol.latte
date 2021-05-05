@@ -26,12 +26,7 @@
                        class="form-control">
                 <br>
                 <label>Zamestnanec</label>
-                <select name="t" class="form-control">
-                    <option value="">Vyberte</option>
-                    {foreach $zamestnanec as $zames}
-                        <option value="{$zames['zamestnanec_key']}">{$zames['zamestnanec_key']}</option>
-                    {/foreach}
-                </select>
+
                 <br>
                 <label>Rezervacia</label>
 
@@ -39,6 +34,12 @@
 
                 <br>
                 {/foreach}
+                <select name="t" class="form-control">
+                    <option value="">Vyberte</option>
+                    {foreach $zamestnanec as $zames}
+                        <option value="{$zames['zamestnanec_key']}">{$zames['zamestnanec_key']}</option>
+                    {/foreach}
+                </select>
             </div>
 
         </div>
