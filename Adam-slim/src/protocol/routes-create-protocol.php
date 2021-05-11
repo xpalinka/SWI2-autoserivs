@@ -65,7 +65,7 @@ $app->post('/create-user', function(Request $request, Response $response, $args)
             $this->db->rollback();
             if($ex->getCode() == 23505) {
                 print $ex->getMessage();
-                $tplVars['error'] = 'Tento užívateľ už existuje.';
+                $tplVars['error'] = 'Tento užívateľ už existsuje.';
                 try {
                     $stmt = $this->db->prepare('SELECT * FROM pozicia');
                     $stmt->execute();
