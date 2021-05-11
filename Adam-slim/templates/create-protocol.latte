@@ -11,25 +11,25 @@
 <div class="container">
     <h1>{include title}</h1>
 
-    <form action="" method="post">
+    <form action="{link create-protocol}" method="post">
         <div class="row">
             <div class="col-6">
 
                 <label>Datum vystaveni</label>
                {foreach $reservation as $res}
-                <input type="text" name="fn" value="{$res['datum_vytvorenia']}"
+                <input type="text" name="dv" value="{$res['datum_vytvorenia']}"
                        class="form-control">
 
                 <br>
                 <label>Posledni zmena</label>
-                <input type="text" name="ln" value="{$res['datum_vytvorenia']}"
+                <input type="text" name="pz" value="{$res['datum_vytvorenia']}"
                        class="form-control">
                 <br>
                 <label>Zamestnanec</label>
-                    <select name="t" class="form-control">
+                    <select name="z" class="form-control">
                         <option value="">Vyberte</option>
                         {foreach $zamestnanec as $zamest}
-                            <option value="{$zamest['zamestnanec_key']}">{$zamest['meno']}{$zamest['priezvisko']}</option>
+                            <option value="{$zamest['zamestnanec_key']}">{$zamest['meno']} {$zamest['priezvisko']}</option>
                         {/foreach}
                     </select>
                 <br>
@@ -42,9 +42,18 @@
 
             </div>
 
-
-
         </div>
+
+        <button type="submit" class="btn btn-primary">
+            <span class="fa fa-save"></span>
+            Vytvořit protokol
+        </button>
+    </form>
+
+    <hr>
+    <a href="{link / }" class="btn btn-primary">
+        <span class="fa fa-arrow-left"></span> Zpet
+    </a>
 
       {/block}
 {*    {foreach $reservation as $p}
