@@ -76,7 +76,7 @@ $app->post('/create-protocol', function(Request $request, Response $response, $a
                 }
                 $tplVars['pozicie'] = $stmt->fetchAll();
                 $tplVars['form'] = $data;
-                return $this->view->render($response, 'create-user.latte', $tplVars);
+                return $this->view->render($response, 'create-protocol.latte', $tplVars);
             } else {
                 $this->logger->error($ex->getMessage());
                 die($ex->getMessage());
