@@ -82,7 +82,7 @@ $app->post('/create-protocol', function(Request $request, Response $response, $a
                 die($ex->getMessage());
             }
         }
-        return $response->withHeader('Location', $this->router->pathFor('home'));
+        return $response->withHeader('Location', $this->router->pathFor('protocols'));
     } else {
         $tplVars['error'] = 'Nie sú vyplnené všetky údaje.';
         $tplVars['form'] = $data;
