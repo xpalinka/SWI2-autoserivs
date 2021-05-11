@@ -23,10 +23,10 @@
                 <td>{$reservation['termin']}</td>
                 <td>{$reservation['meno']} {$reservation['priezvisko']}</td>
                 <td>{$reservation['email']}</td>
-                <td>{$reservation['telefon']}</td> {* chyba v tabulke pole sa nevola telefon ale telefeon error*}
+                <td>{$reservation['telefon']}</td>
 
             <td>
-                <!-- odkaz na dalsie info -->
+                <!-- odkaz na vytvoreni protokolu -->
                 <a href="{link create-protocol}?id={$reservation['rezervacia_key']}"
                    class="btn btn-primary">
                     <span class="fa fa-long-arrow-alt-right"></span>
