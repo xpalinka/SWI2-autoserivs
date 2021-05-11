@@ -24,10 +24,10 @@ $app->get('/create-protocol', function (Request $request, Response $response, $a
         $stmt->execute();
     } catch (Exception $ex) {
         $this->logger->error($ex->getMessage());
-        die($ex->getMessage());
+        die($ex-é>getMessage());
     }
 
-    $tplVars['zamestnanec'] = $stmt->fetchAll();
+    $tplVars['adresy'] = $stmt->fetchAll();
     try {
         $stmt = $this->db->prepare('SELECT * FROM zamestnanec');
         $stmt->execute();
