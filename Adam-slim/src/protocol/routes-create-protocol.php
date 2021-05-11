@@ -53,9 +53,9 @@ $app->post('/create-protocol', function(Request $request, Response $response, $a
                                       (datum_vystavenia, posledna_zmena, zamestnanec_key, rezervacia_key) 
                                     VALUES
                                       (:dv, :pz, :z, :r)');
-            $stmt->bindValue(':fn', $data['fn']);
-            $stmt->bindValue(':ln', $data['ln']);
-            $stmt->bindValue(':rc', $data['rc']);
+            $stmt->bindValue(':dv', $data['dv']);
+            $stmt->bindValue(':pz', $data['pz']);
+            $stmt->bindValue(':z', $data['z']);
             $stmt->bindValue(':r', $data['r']);
 
             $stmt->execute();
