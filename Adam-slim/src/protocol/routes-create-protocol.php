@@ -43,14 +43,15 @@ $app->get('/create-protocol', function (Request $request, Response $response, $a
     return $this->view->render($response, 'create-protocol.latte',$tplVars);
 })->setName('create-protocol');
 
-$app->post('/create-user', function(Request $request, Response $response, $args) {
+$app->post('/create-protocol', function(Request $request, Response $response, $args) {
     $data = $request->getParsedBody();  //$_POST
     if(!empty($data['dv']) && !empty($data['pz']) && !empty($data['z']) && !empty($data['r']) ) {
         try {
             $this->db->beginTransaction();
 
             $stmt=$this->db->prepare('INSERT INTO protokol
-                                      (datum_vystavenia, posledna_zmena, zamestnanec_key, rezervacia_key)                                       VALUES
+                                      (datum_vystavenia, posledna_zmena, zamestnanec_key, rezervacia_key) 
+                                    VALUES
                                       (:dv, :pz, :z, :r)');
             $stmt->bindValue(':fn', $data['fn']);
             $stmt->bindValue(':ln', $data['ln']);
@@ -65,7 +66,7 @@ $app->post('/create-user', function(Request $request, Response $response, $args)
             $this->db->rollback();
             if($ex->getCode() == 23505) {
                 print $ex->getMessage();
-                $tplVars['error'] = 'Tento užívateľ už existsuje.';
+                $tplVars['error'] = 'Tento prtokol už existsuje.';
                 try {
                     $stmt = $this->db->prepare('SELECT * FROM pozicia');
                     $stmt->execute();
@@ -85,7 +86,7 @@ $app->post('/create-user', function(Request $request, Response $response, $args)
     } else {
         $tplVars['error'] = 'Nie sú vyplnené všetky údaje.';
         $tplVars['form'] = $data;
-        return $this->view->render($response, 'create-user.latte', $tplVars);
+        return $this->view->render($response, 'create-protocol.latte', $tplVars);
     }
 
 });
