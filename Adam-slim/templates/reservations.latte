@@ -13,7 +13,9 @@
             <th>Zákazník</th>
             <th>Email zákazníka</th>
             <th>Telefon zákazníka</th>
-            <th>Protokol</th>
+            {if (($_SESSION['user']['pozicia_key'] == 1) || ($_SESSION['user']['pozicia_key'] == 3))}
+                <th>Protokol</th>
+            {/if}
 
         </tr>
         {foreach $reservations as $reservation}
@@ -25,13 +27,16 @@
                 <td>{$reservation['email']}</td>
                 <td>{$reservation['telefon']}</td>
 
-            <td>
-                <!-- odkaz na vytvoreni protokolu -->
-                <a href="{link create-protocol}?id={$reservation['rezervacia_key']}"
-                   class="btn btn-primary">
-                    <span class="fa fa-long-arrow-alt-right"></span>
-                </a>
-            </td>
+                {if (($_SESSION['user']['pozicia_key'] == 1) || ($_SESSION['user']['pozicia_key'] == 3))}
+                    <td>
+                        <!-- odkaz na vytvoreni protokolu -->
+                        <a href="{link create-protocol}?id={$reservation['rezervacia_key']}"
+                           class="btn btn-primary">
+                            <span class="fa fa-long-arrow-alt-right"></span>
+                        </a>
+                    </td>
+                {/if}
+
             </tr>
         {/foreach}
     </table>
