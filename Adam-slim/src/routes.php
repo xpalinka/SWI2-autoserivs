@@ -8,7 +8,15 @@ $app->get('/', function (Request $request, Response $response) {
 })->setName('/');
 
 $app->group('/auth', function () use ($app) {
-//    include('routes-reservations.php');
+    include('routes-create-user.php');
+    include('protocol/routes-protocols.php');
+    include('protocol/routes-details-protocol.php');
+    include('protocol/routes-edit-protocol.php');
+    include('protocol/routes-delete-protocol.php');
+    include('protocol/routes-details-protocol-item.php');
+    include('protocol/routes-create-protocol.php');
+    include('protocol/routes-add-protocol-material.php');
+    include('routes-reservations.php');
     $app->get('/logout', function (Request $request, Response $response) {
         session_destroy();
         return $response->withHeader('Location', $this->router->pathFor('login'));
@@ -52,14 +60,4 @@ $app->get('/home', function (Request $request, Response $response, $args) {
 //    }
 //});
 
-include('routes-create-user.php');
-include('protocol/routes-protocols.php');
-include('protocol/routes-details-protocol.php');
-include('protocol/routes-edit-protocol.php');
-include('protocol/routes-delete-protocol.php');
-include('protocol/routes-details-protocol-item.php');
-include('routes-reservations.php');
 include('routes-login.php');
-include('protocol/routes-create-protocol.php');
-
-include('protocol/routes-add-protocol-material.php');
