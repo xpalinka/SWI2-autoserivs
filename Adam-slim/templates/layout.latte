@@ -26,25 +26,29 @@
                     Uvod
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{link reservations}">
-                    Rezevacie
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{link protocols}">
-                    Protokoly
-                </a>
-            </li>
             {if !empty($_SESSION['user'])}
-                    {if ($_SESSION['user']['pozicia'] = 1)}
-                         <li class="nav-item">
-                             <a class="nav-link" href="{link create-user}">
-                                 <span class="fa fa-sign-out-alt"></span>
-                                 Vytvorit novy
-                             </a>
-                         </li>
-                    {/if}
+                {if ($_SESSION['user']['pozicia_key'] != 2)}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{link reservations}">
+                            Rezevacie
+                        </a>
+                    </li>
+                {/if}
+                {if ($_SESSION['user']['pozicia_key'] != 4)}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{link protocols}">
+                            Protokoly
+                        </a>
+                    </li>
+                {/if}
+                {if ($_SESSION['user']['pozicia_key'] == 1)}
+                     <li class="nav-item">
+                         <a class="nav-link" href="{link create-user}">
+                             <span class="fa fa-plus"></span>
+                             Vytvorit zamestnanca
+                         </a>
+                     </li>
+                {/if}
                 <li class="nav-item">
                     <a class="nav-link" href="{link logout}">
                         <span class="fa fa-sign-out-alt"></span>
