@@ -5,11 +5,11 @@ describe('Basic Tests', () => {
     cy.get('input').last().type('HESLO')
     cy.get('form').submit()
   })
-  
+
   it('Walk through pages', () => {
-    cy.visit('/protocols')
+    cy.visit('/auth/protocols')
     cy.contains('Protokoly')
-    cy.visit('/reservations')
+    cy.visit('/auth/reservations')
     cy.contains('Rezervacie')
   })
 })

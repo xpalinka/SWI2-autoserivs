@@ -1,7 +1,7 @@
 describe('Login Test', () => {
   it('Visits login page', () => {
     cy.visit('/login')
-    cy.contains('Login')
+    cy.contains(/Email|Login/)
     cy.get('input').first().type('xotradov@mendelu.cz')
     cy.contains('Heslo')
     cy.get('input').last().type('HESLO')
