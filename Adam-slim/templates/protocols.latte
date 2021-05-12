@@ -12,15 +12,21 @@
             <th>Počet položek</th>
             <th>Zodpovědný zaměstnanec</th>
             <th>Detailné zobrazení</th>
-            <th>Editovat</th>
-            <th>Vymazat</th>
+{*            <th>Editovat</th>*}
+            {if ($_SESSION['user']['pozicia_key'] != 2)}
+                <th>Vymazat</th>
+            {/if}
 
         </tr>
         {foreach $protocols as $protocol}
             <tr>
                 <td class="upper">{$protocol['datum_vystavenia']}</td>
                 <td>{$protocol['posledna_zmena']}</td>
-                <td>{$protocol['poc_poloziek']}</td>
+                {if (!empty($protocol['poc_poloziek']))}
+                    <td>{$protocol['poc_poloziek']}</td>
+                {else}
+                    <td>0</td>
+                {/if}
                 <td>{$protocol['meno']} {$protocol['priezvisko']}</td>
 
                 <td>
@@ -31,24 +37,26 @@
                     </a>
                 </td>
 
-                <td>
-                    <!-- odkaz na editaci -->
-                    <a href="{link edit-protocol}?id={$protocol['protokol_key']}"
-                       class="btn btn-primary">
-                        <span class="fa fa-edit"></span>
-                    </a>
-                </td>
+{*                <td>*}
+{*                    <!-- odkaz na editaci -->*}
+{*                    <a href="{link edit-protocol}?id={$protocol['protokol_key']}"*}
+{*                       class="btn btn-primary">*}
+{*                        <span class="fa fa-edit"></span>*}
+{*                    </a>*}
+{*                </td>*}
 
 
-                <td>
-                    <form method="post"
-                          onsubmit="return confirm('Opravdu smazat protokol?')"
-                          action="{link delete-protocol}?id={$protocol['protokol_key']}">
-                        <button type="submit" class="btn btn-danger">
-                            <span class="fa fa-trash"></span>
-                        </button>
-                    </form>
-                </td>
+                {if ($_SESSION['user']['pozicia_key'] != 2)}
+                    <td>
+                        <form method="post"
+                              onsubmit="return confirm('Opravdu smazat protokol?')"
+                              action="{link delete-protocol}?id={$protocol['protokol_key']}">
+                            <button type="submit" class="btn btn-danger">
+                                <span class="fa fa-trash"></span>
+                            </button>
+                        </form>
+                    </td>
+                {/if}
             </tr>
         {/foreach}
     </table>
