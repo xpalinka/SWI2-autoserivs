@@ -16,5 +16,7 @@ $app->get('/reservations', function (Request $request, Response $response, $args
 
     $tplVars['reservations'] = $stmt->fetchAll();
 
+
+
     return $this->view->render($response, 'reservations.latte', $tplVars);
 })->setName('reservations');
