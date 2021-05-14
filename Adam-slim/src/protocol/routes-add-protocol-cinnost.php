@@ -3,7 +3,7 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-$app->get('/add-protocol-material', function(Request $request, Response $response, $args) {
+$app->get('/add-protocol-cinnnost', function(Request $request, Response $response, $args) {
 
     try {
         $stmt = $this->db->prepare("SELECT * FROM material");
