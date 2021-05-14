@@ -5,6 +5,15 @@ use \Psr\Http\Message\ResponseInterface as Response;
 
 $app->get('/add-protocol-material', function(Request $request, Response $response, $args) {
 
-        return $this->view->render($response, 'add-protocol-cinnost.latte');
+    try {
+        $stmt = $this->db->prepare("SELECT * FROM material");
+        $stmt->execute();
+    } catch (Exception $ex) {
+        $this->logger->error($ex->getMessage());
+        die($ex->getMessage());
+    }
+    $tplVars['materials'] = $stmt->fetchAll();
+
+        return $this->view->render($response, 'add-protocol-cinnost.latte',$tplVars);
 
 });
