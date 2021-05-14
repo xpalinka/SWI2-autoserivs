@@ -16,7 +16,7 @@ $app->group('/auth', function () use ($app) {
     include('protocol/routes-details-protocol-item.php');
     include('protocol/routes-create-protocol.php');
     include('protocol/routes-add-protocol-material.php');
-    include('protocol/routes-add-protocol-cinnost.php');
+    include('protocol/routes-add-protoco-cinnost.php');
     include('routes-reservations.php');
     $app->get('/logout', function (Request $request, Response $response) {
         session_destroy();
