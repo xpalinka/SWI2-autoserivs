@@ -9,7 +9,7 @@ $app->get('/', function (Request $request, Response $response) {
 
 $app->group('/auth', function () use ($app) {
     include('routes-create-user.php');
-    include('protocol/routes-add-protocol-cinnost.php');
+    include('protocol/routes-add-cinnost.php');
     include('protocol/routes-protocols.php');
     include('protocol/routes-details-protocol.php');
     include('protocol/routes-edit-protocol.php');

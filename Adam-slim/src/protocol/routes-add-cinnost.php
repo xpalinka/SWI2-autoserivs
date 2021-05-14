@@ -3,7 +3,7 @@
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
-$app->get('/add-protocol-cinnost', function(Request $request, Response $response, $args) {
+$app->get('/add-cinnost', function(Request $request, Response $response, $args) {
 
     try {
         $stmt = $this->db->prepare("SELECT * FROM material");
@@ -14,6 +14,6 @@ $app->get('/add-protocol-cinnost', function(Request $request, Response $response
     }
     $tplVars['materials'] = $stmt->fetchAll();
 
-        return $this->view->render($response, 'add-protocol-cinnost.latte',$tplVars);
+        return $this->view->render($response, 'add-cinnost.latte',$tplVars);
 
 });
