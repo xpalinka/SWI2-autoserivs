@@ -4,15 +4,18 @@ use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 
 $app->get('/add-cinnost', function(Request $request, Response $response, $args) {
-
+    $id = $request->getQueryParam('id');
+    $tplVars['id'] = $id;
     try {
-        $stmt = $this->db->prepare("SELECT * FROM material");
+        $stmt = $this->db->prepare('SELECT * FROM protokol
+                                    WHERE protokol_key=:id');
+        $stmt->bindValue(':id', $id);
         $stmt->execute();
     } catch (Exception $ex) {
         $this->logger->error($ex->getMessage());
         die($ex->getMessage());
     }
-    $tplVars['materials'] = $stmt->fetchAll();
+    $tplVars['protokol'] = $stmt->fetchAll();
 
         return $this->view->render($response, 'add-cinnost.latte',$tplVars);
 
@@ -38,6 +41,16 @@ $app->post('/add-cinnost', function(Request $request, Response $response, $args)
 //
             $this->db->commit();
 
+            $this->db->beginTransaction();
+
+            $stmt=$this->db->prepare('INSERT INTO typ_opravy
+                                      (cena_za_pracu, nazov) 
+                                    VALUES
+                                      (:czp, :nc)');
+            $stmt->bindValue(':czp', $data['czp']);
+            $stmt->bindValue(':nc', $data['nc']);
+
+
         } catch (Exception $ex) {
             $this->db->rollback();
             if($ex->getCode() == 23505) {
@@ -50,7 +63,11 @@ $app->post('/add-cinnost', function(Request $request, Response $response, $args)
                 die($ex->getMessage());
             }
         }
+
+        echo "New record created successfully. Last inserted ID is: " . $last_id;
         return $response->withHeader('Location', $this->router->pathFor('protocols'));
+
+
     } else {
         $tplVars['error'] = 'Nie sú vyplnené všetky údaje.';
         $tplVars['form'] = $data;
