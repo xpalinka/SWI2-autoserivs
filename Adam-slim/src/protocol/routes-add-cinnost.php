@@ -76,8 +76,7 @@ $app->post('/add-cinnost', function(Request $request, Response $response, $args)
             }
         }
 
-        echo "New record created successfully. Last inserted ID is: " . $last_id;
-        //return $response->withHeader('Location', $this->router->pathFor('protocols'));
+        return $response->withHeader('Location', $this->router->pathFor('protocols'));
 
 
     } else {
