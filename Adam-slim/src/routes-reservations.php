@@ -6,8 +6,10 @@ use \Psr\Http\Message\ResponseInterface as Response;
 $app->get('/reservations', function (Request $request, Response $response, $args) {
 
     try {
-        $stmt = $this->db->prepare('SELECT * FROM rezervacia
-                                    LEFT JOIN zakaznik USING (zakaznik_key)');
+        $stmt = $this->db->prepare('SELECT * FROM rezervacia 
+                                    LEFT JOIN protokol USING(rezervacia_key) 
+                                    LEFT JOIN zakaznik USING(zakaznik_key)
+                                    ');
         $stmt->execute();
     } catch (Exception $ex) {
         $this->logger->error($ex->getMessage());
@@ -15,7 +17,6 @@ $app->get('/reservations', function (Request $request, Response $response, $args
     }
 
     $tplVars['reservations'] = $stmt->fetchAll();
-
 
 
     return $this->view->render($response, 'reservations.latte', $tplVars);

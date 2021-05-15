@@ -28,13 +28,22 @@
                 <td>{$reservation['telefon']}</td>
 
                 {if (($_SESSION['user']['pozicia_key'] == 1) || ($_SESSION['user']['pozicia_key'] == 3))}
+                    {if $reservation['protokol_key']== NULL}
                     <td>
                         <!-- odkaz na vytvoreni protokolu -->
                         <a href="{link create-protocol}?id={$reservation['rezervacia_key']}"
                            class="btn btn-primary">
-                            <span class="fa fa-long-arrow-alt-right"></span>
+                            <span class="fa fa-long-arrow-alt-right"></span> Vytvořit protokol
                         </a>
                     </td>
+                    {else}
+                        <td>
+                            <!-- odkaz na vytvoreni protokolu -->
+                            <a href="{link details-protocol}?id={$reservation['protokol_key']}"
+                               class="btn btn-primary">
+                                <span class="fa fa-long-arrow-alt-right"></span> Protokol
+                            </a>
+                        </td>
                 {/if}
 
             </tr>
