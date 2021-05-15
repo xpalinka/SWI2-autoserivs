@@ -40,7 +40,7 @@ $app->post('/add-cinnost', function(Request $request, Response $response, $args)
             $this->db->rollback();
             if($ex->getCode() == 23505) {
                 print $ex->getMessage();
-                $tplVars['error'] = 'Tento prtokol už existsuje.';
+                $tplVars['error'] = 'Tento prtokol už existuje.';
 
                 return $this->view->render($response, 'add-cinnost.latte', $tplVars);
             } else {
@@ -48,7 +48,7 @@ $app->post('/add-cinnost', function(Request $request, Response $response, $args)
                 die($ex->getMessage());
             }
         }
-        return $response->withHeader('Location', $this->router->pathFor('add-cinnost'));
+        return $response->withHeader('Location', $this->router->pathFor('protocols'));
     } else {
         $tplVars['error'] = 'Nie sú vyplnené všetky údaje.';
         $tplVars['form'] = $data;
