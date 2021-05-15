@@ -27,6 +27,13 @@
                            class="form-control">
                     {/foreach}
                     <br>
+                    <label>ID opravy</label>
+                    {foreach $typ_opravy as $to}
+
+                        <input type="text" name=tok value="{$to['typ_opravy_key']}+1"
+                               class="form-control">
+                    {/foreach}
+                    <br>
 
                     <button type="submit" class="btn btn-primary">
                         <span class="fa fa-save"></span>

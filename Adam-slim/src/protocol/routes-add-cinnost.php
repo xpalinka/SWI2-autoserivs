@@ -17,6 +17,17 @@ $app->get('/add-cinnost', function(Request $request, Response $response, $args) 
     }
     $tplVars['protokol'] = $stmt->fetchAll();
 
+    try {
+        $stmt = $this->db->prepare('SELECT * FROM typ_opravy ORDER BY typ_opravy_key DESC LIMIT 1');
+        $stmt->execute();
+    } catch (Exception $ex) {
+        $this->logger->error($ex->getMessage());
+        die($ex->getMessage());
+    }
+    $tplVars['typ_opravy'] = $stmt->fetchAll();
+
+
+
     return $this->view->render($response, 'add-cinnost.latte',$tplVars);
 
 })->setName('add-cinnost');
@@ -34,8 +45,6 @@ $app->post('/add-cinnost', function(Request $request, Response $response, $args)
             $stmt->bindValue(':czp', $data['czp']);
             $stmt->bindValue(':nc', $data['nc']);
 
-            $last_id = $stmt->insert_id;
-                echo "New record created successfully. Last inserted ID is: " . $last_id;
 
             $stmt->execute();
 //
@@ -47,7 +56,7 @@ $app->post('/add-cinnost', function(Request $request, Response $response, $args)
                                       (typ_opravy_key, protokol_key) 
                                     VALUES
                                       ( :tok, :pk)');
-            $stmt->bindValue(':tok', $last_id);
+            $stmt->bindValue(':tok', $data['tok']);
             $stmt->bindValue(':pk', $data['pk']);
 
             $stmt->execute();
