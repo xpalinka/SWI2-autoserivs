@@ -17,17 +17,6 @@ $app->get('/add-cinnost', function(Request $request, Response $response, $args) 
     }
     $tplVars['protokol'] = $stmt->fetchAll();
 
-    try {
-        $stmt = $this->db->prepare('SELECT * FROM polozka_protokolu
-                                    ');
-        $last_id = $stmt->insert_id;
-    } catch (Exception $ex) {
-        $this->logger->error($ex->getMessage());
-        die($ex->getMessage());
-    }
-    $tplVars['protokol'] = $stmt->fetchAll();
-
-
     return $this->view->render($response, 'add-cinnost.latte',$tplVars);
 
 })->setName('add-cinnost');
