@@ -31,6 +31,8 @@ $app->post('/add-cinnost', function(Request $request, Response $response, $args)
             $stmt->bindValue(':czp', $data['czp']);
             $stmt->bindValue(':nc', $data['nc']);
 
+            $last_id = $stmt->insert_id;
+                echo "New record created successfully. Last inserted ID is: " . $last_id;
 
             $stmt->execute();
 //
