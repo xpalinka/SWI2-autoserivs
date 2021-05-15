@@ -20,7 +20,7 @@ $app->get('/add-cinnost', function(Request $request, Response $response, $args) 
 
 $app->post('/add-cinnost', function(Request $request, Response $response, $args) {
     $data = $request->getParsedBody();  //$_POST
-    if(!empty($data['dv']) && !empty($data['pz']) && !empty($data['z']) && !empty($data['r']) ) {
+    if(!empty($data['nc']) && !empty($data['czp'])) {
         try {
             $this->db->beginTransaction();
 
