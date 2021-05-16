@@ -23,14 +23,14 @@
                     <label>ID Protokolu</label>
                     {foreach $protokol as $rpo}
 
-                    <input type="text" name=pk value="{$rpo['protokol_key']}"
+                    <input type="hidden" name=pk value="{$rpo['protokol_key']}"
                            class="form-control">
                     {/foreach}
                     <br>
                     <label>ID opravy</label>
                     {foreach $typ_opravy as $to}
 
-                        <input type="text" name=tok value="{$to['typ_opravy_key']+1}"
+                        <input type="hidden" name=tok value="{$to['typ_opravy_key']+1}"
                                class="form-control">
                     {/foreach}
                     <br>
