@@ -15,16 +15,17 @@
         <div class="row">
             <div class="col-6">
 
-                <label>Datum vystaveni</label>
+                <label>Datum vytvoření</label>
+
                {foreach $reservation as $res}
                 <input type="text" name="dv" value="{$res['datum_vytvorenia']}"
+                       class="form-control" readonly>
+
+
+
+                <input type="hidden" name="pz" value="{$res['datum_vytvorenia']}"
                        class="form-control">
 
-                <br>
-                <label>Posledni zmena</label>
-                <input type="text" name="pz" value="{$res['datum_vytvorenia']}"
-                       class="form-control">
-                <br>
                 <label>Zamestnanec</label>
                     <select name="z" class="form-control">
                         <option value="">Vyberte</option>
@@ -32,10 +33,10 @@
                             <option value="{$zamest['zamestnanec_key']}">{$zamest['meno']} {$zamest['priezvisko']}</option>
                         {/foreach}
                     </select>
-                <br>
-                <label>Rezervaciaa</label>
 
-                    <input type="text" name="r" value="{$res['rezervacia_key']}">
+
+
+                    <input type="hidden" name="r" value="{$res['rezervacia_key']}">
 
                 <br>
                 {/foreach}
