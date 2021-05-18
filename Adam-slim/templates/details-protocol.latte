@@ -106,11 +106,12 @@
              </div>
                 <div class="col-2 float-right">
 
+                    {if ($_SESSION['user']['pozicia_key'] != 2)}
                         <a href="add-cinnost?id={$p['protokol_key']}"
                            class="btn btn-primary">
                             <span class="fa fa-plus"></span> Přidat činnost
                         </a>
-
+                    {/if}
 
                 </div>
             </div>
